@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import test from '../features/testReducer';
+import signUp from '../features/signUp';
+import signIn from '../features/signIn';
 
 export const store = configureStore({
   reducer: {
-    test: test,
+    signUp : signUp,
+    signIn : signIn,
   },
 });
