@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles, createTheme } from '@material-ui/core/styles';
+import { makeStyles, createTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     color:appTheme.palette.secondary.main
   },
   title: {
-    maxWidth: 215,
+    maxWidth: 230,
   },
   inputRoot: {
     color: appTheme.palette.primary.light,
