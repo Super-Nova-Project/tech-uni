@@ -9,23 +9,24 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import SignIn from '../auth/SignIn';
-import SignUp from '../auth/SignIn';
+import SignUp from '../auth/SignUp';
+import Logo from './Logo'
 
 const appTheme = createTheme({
   palette: {
     primary: {
       light: '#6179b9',
-      main: '#212c4a',
+      main: '#ffffff',
       dark: '#141a2c',
       contrastText: '#fff',
     },
     secondary: {
       light: '#f6ee34',
-      main: '#eee40a',
+      main: '#9ccac5',
       dark: '#bdb508',
       contrastText: '#000',
     },
@@ -40,9 +41,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     color: appTheme.palette.secondary.main
   },
-  title: {
-    maxWidth: 230,
-  },
+
   inputRoot: {
     color: appTheme.palette.primary.light,
   },
@@ -70,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     backgroundColor: appTheme.palette.primary.main,
-    height: '15vh'
+    height: '20vh'
   },
   icons: {
     color: appTheme.palette.secondary.main
@@ -82,13 +81,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElSignin, setAnchorElSignin] = React.useState(null);
+  const [anchorElSignup, setAnchorElSignup] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleSignIn = (event) => {
+    setAnchorElSignin(event.currentTarget);
+    console.log(anchorElSignin);
+  };
+
+  const handleSignUp = (event) => {
+    setAnchorElSignup(event.currentTarget);
+    console.log(anchorElSignup);
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    console.log(anchorEl);
   };
+
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -169,23 +182,27 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <img src="logo1.png" alt="logo" className={classes.title} />
+          <Logo />
+
           <div className={classes.grow} />
           <div className={classes.auth}>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/signin" onClick={handleSignIn}>Sign In</Link>
               </li>
               <li>
-                <Link to="/about-us">About Us</Link>
+                <Link to="/signup" onClick={handleSignUp}>Sign Up</Link>
               </li>
             </ul>
-            <BrowserRouter>
-              <Switch>
-                <Route exact path="/signin" component={SignIn} onClick={handleClick}  />
-                <Route path="/signup" component={SignUp} onClick={handleClick} />
-              </Switch>
-            </BrowserRouter>
+            <Switch>
+              <Route exact path="/signin" >
+                <SignIn anchorElSignin={anchorElSignin} />
+              </Route>
+              <Route path="/signup">
+                <SignUp anchorElSignup={anchorElSignup} />
+              </Route>
+
+            </Switch>
           </div>
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" className={classes.icons}>

@@ -6,7 +6,7 @@ const useForm = (callback) => {
     const handleSubmit = (e) => {
         // after submitting my form
         e.preventDefault();
-        e.target.reset();
+        console.log({values});
         callback(values);
     }
 
@@ -15,6 +15,7 @@ const useForm = (callback) => {
         // for field name that I am changing on add/update 
         // with the new value
         setValues({...values, [e.target.name]: e.target.value});
+        console.log({values});
     }
     return [handleSubmit, handleChange, values];
 }

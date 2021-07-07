@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -11,21 +12,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-   const handleClose = () => {
-    setAnchorEl(null);
-  };
+
+  console.log(`before ${anchorEl}`);
+  useEffect(() => {
+    setAnchorEl(props.anchorElSignin)
+  }, [props.anchorElSignin]);
+  console.log(`After ${anchorEl}`);
+
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  console.log('-----', open)
+  const id = open ? 'signin' : undefined;
 
   return (
     <div>
       <Popover
         id={id}
         open={open}
-        anchorEl={anchorEl}
+        anchorEl={props.anchorEl}
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'bottom',
@@ -36,7 +46,7 @@ export default function SignIn(props) {
           horizontal: 'center',
         }}
       >
-        <Typography className={classes.typography}>The content of the Popover.</Typography>
+        <Typography className={classes.typography}>sign in successfully</Typography>
       </Popover>
     </div>
   );
