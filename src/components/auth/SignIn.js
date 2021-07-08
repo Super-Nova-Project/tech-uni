@@ -1,9 +1,11 @@
 import React, {useContext, useState} from 'react';
+import {useHistory} from 'react-router-dom'
 import {AuthContext} from '../../context/authContext';
 import {Form, FormControl, Button} from 'react-bootstrap'
 import SignUp from './SignUp';
 
 function Login (props) {
+  const history = useHistory();
 
     const context = useContext(AuthContext); 
     const [logn, setLogn] = useState({
@@ -24,6 +26,7 @@ function Login (props) {
         e.preventDefault();
         e.target.reset();
         context.login(logn.username, logn.password);
+        history.push('/')
     }
     return (
         <>
@@ -53,7 +56,6 @@ function Login (props) {
                 Login
               </Button>
             </Form>
-          <SignUp/>
           </>
           )}
         </>

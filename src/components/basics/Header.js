@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,7 +15,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import SignIn from '../auth/SignIn';
 import SignUp from '../auth/SignUp';
-import Logo from './Logo'
+import Logo from './Logo';
+import {AuthContext} from '../../context/authContext';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const appTheme = createTheme({
   palette: {
@@ -83,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Header() {
+  const context = useContext(AuthContext); 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElSignin, setAnchorElSignin] = React.useState(null);
@@ -90,6 +95,12 @@ export default function Header() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [value, setValue] = React.useState(1);
+
+  const handleChange = (event, newValue) => {
+    console.log('---tabs---',newValue);
+    setValue(newValue);
+  };
 
   const handleSignIn = (event) => {
     setAnchorElSignin(event.currentTarget);
@@ -170,27 +181,12 @@ export default function Header() {
           </IconButton>
           <Logo />
 
-          <div className={classes.grow} />
+          {/* <div className={classes.grow} /> */}
           <div className={classes.auth}>
-            <ul>
-              <li>
-                <Link to="/signin" onClick={handleSignIn}>Sign In</Link>
-              </li>
-              <li>
-                <Link to="/signup" onClick={handleSignUp}>Sign Up</Link>
-              </li>
-            </ul>
-            <Switch>
-              <Route exact path="/signin" >
                 <SignIn anchorElSignin={anchorElSignin} />
-              </Route>
-              <Route path="/signup">
-                <SignUp anchorElSignup={anchorElSignup} />
-              </Route>
-
-            </Switch>
+            
           </div>
-          <div className={classes.sectionDesktop}>
+          {/* <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" className={classes.icons}>
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
@@ -248,13 +244,48 @@ export default function Header() {
                 <MoreIcon />
               </IconButton>
             </div>
-            </div>
-          </Toolbar>
+            </div>*/}
+          
+        {/* {renderMobileMenu} */}
+        {/* {renderMenu} */}
+        </Toolbar>
         </AppBar>
-        {renderMobileMenu}
-        {renderMenu}
       
-      </div>
+      </div> 
+      <Paper square>
+      <Tabs
+        value={value}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={handleChange}
+        aria-label="disabled tabs example"
+      >{context.loggedIn ? (
+        <>
+        <Link to="/" >
+        <Tab label="Home" />
+        </Link>
+        <Link to="/create-course" >
+        <Tab label="Create Course" />
+        </Link>
+        <Link to="/join-course" >
+        <Tab label="Join Course" />
+        </Link>
+        </>
+      ): (
+        <>
+        <Link to="/" >
+        <Tab label="Home" />
+        </Link>
+        <Link to="/signup" >
+        <Tab label="SignUp" />
+        </Link>
+        </>
+      )}
+      <Link to="/about-us" >
+      <Tab label="About Us" />
+      </Link>
+      </Tabs>
+    </Paper>
     </>
   );
 }

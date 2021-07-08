@@ -1,5 +1,6 @@
 const axios = require('axios').default;
-const api = 'https://eraser-401.herokuapp.com/';
+const api = 'https://eraser-401.herokuapp.com';
+
 
 export const signUp = (data) => (dispatch, state) => {
   console.log("inside signUp");
@@ -7,9 +8,9 @@ export const signUp = (data) => (dispatch, state) => {
   console.log('-i-f-sg-dsf-wsef-ds-',data);
   let obj = {
     email: data.email,
-    password: data.pass,
-    firstName: data.firstname,
-    lastName: data.lastname
+    password: data.password,
+    firstName: data.firstName,
+    lastName: data.lastName
   }
   console.log('my obj', obj);
   axios( {
@@ -24,8 +25,7 @@ export const signUp = (data) => (dispatch, state) => {
         }
   })
     .then((response)=> {
-      console.log(response.data.token);
-      console.log(response.body.user);
+      console.log(response.data.user);
       dispatch(postAction(response.data));
     })
     .catch(function (error) {

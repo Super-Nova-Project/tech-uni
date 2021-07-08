@@ -1,27 +1,25 @@
 import React,{useState, useEffect} from 'react';
 import cookie from 'react-cookies';
-import useHandlers from '../hooks/handlers'
 import base64 from 'base-64';
 import jwt from 'jsonwebtoken';
-const API_SERVER = 'https://api-js401.herokuapp.com';
+const API_SERVER = 'https://eraser-401.herokuapp.com';
 export const AuthContext = React.createContext();
 
 function AuthProvider (props) {
     const [user, setUser] = useState({
         loggedIn: false,
         user: {},
-        capabilities: [],
         login, 
         logout, 
-        validateAction,
+        // validateAction,
         signup
     })
-    let cap = [];
     // const [login, validateToken, setAuthState, logout, validateAction] = useHandlers(user, setUser);
 
     async function login (username, password)  {
         // send username:password encoded -> add them to the Authorization header
         // prefixed with Basic XXXencoded_valueXXX
+        console.log('in login', username);
         const encoded = base64.encode(`${username}:${password}`);
         const result = await fetch(`${API_SERVER}/signin`, {
             method: 'post',
@@ -29,7 +27,7 @@ function AuthProvider (props) {
         });
 
         let data = await result.json();
-        console.log(data);
+        console.log('in login fun',data);
         validateToken(data.token);
         // verify ==> with the secret
         // decode ==> does not need the secret
@@ -61,9 +59,7 @@ function AuthProvider (props) {
         // jwt.verify with the secret.
         const user = jwt.decode(token); // not very recommended
         if (user) {
-            let arr = user.capabilities;
             setAuthState(true, user, token);
-            cap = [...arr]
         }
     }
 
@@ -80,11 +76,6 @@ function AuthProvider (props) {
         setAuthState(false, {}, null);
     }
 
-    function validateAction  (action)  {
-        console.log('-------->>>',user)
-        console.log('-------->>>',user.capabilities.includes(action))
-        return cap.includes(action);
-    }
     useEffect (() => {
         // functional component, useEffect -> inital render
         console.log("component did mount", user)
