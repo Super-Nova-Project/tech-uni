@@ -7,7 +7,7 @@ const initialState = {
 export default (state = initialState, action) => {
   let { type, payload } = action;
   switch (type) {
-    case 'POST':
+    case 'POSTUSER':
       return {
           user: payload.user,
           token: payload.token
