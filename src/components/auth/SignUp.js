@@ -10,10 +10,11 @@ import {
   MenuItem,
   Grid, Button
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Logo from '../basics/Logo'
 import useForm from '../hooks/form'
+import { signUp } from '../../features/actions/authActions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,18 +42,22 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-  
-  const [handleChange , handleSubmit , values] = useForm();
+
+  const [handleSubmit, handleChange, values] = useForm(getData);
 
   const state = useSelector(state => {
     return {
-      user: state.user,
-      token: state.token
+      SignUp: state.SignUp,
     }
   });
 
-  // const dispatch = useDispatch();
-  console.log({ state });
+  const dispatch = useDispatch();
+
+  function getData(data) {
+    console.log(data, '----------');
+    dispatch(signUp(dispatch, data))
+  }
+
   useEffect(() => {
     setAnchorEl(props.anchorElSignup)
   }, [props.anchorElSignup]);
@@ -83,23 +88,24 @@ export default function SignUp(props) {
     >
       <Typography className={classes.typography}>
         <Grid container className={classes.grid}> <Logo className={classes.logo} /></Grid>
-        <FormGroup className={classes.root} noValidate autoComplete="on">
+        <FormGroup className={classes.root} noValidate autoComplete="on" onSubmit={handleSubmit}>
           <Grid container className={classes.grid}>
-            <TextField id="outlined-basic" label="First Name" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
-            <TextField id="outlined-basic" label="Last Name" variant="outlined" type="text" item className={classes.name} onChange={handleChange}/>
+            <TextField id="outlined-basic" label="First Name" name="firstname" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
+            <TextField id="outlined-basic" label="Last Name" name="lastname" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
           </Grid>
-          <TextField id="outlined-basic" label="Email" variant="outlined" type="email" onChange={handleChange}/>
-          <TextField id="outlined-basic" label="Password" variant="outlined" type="password" onChange={handleChange}/>
-          <TextField id="outlined-basic" label="Repeat Password" variant="outlined" type="password" onChange={handleChange}/>
+          <TextField id="outlined-basic" label="Email" variant="outlined" name="email" type="email" onChange={handleChange} />
+          <TextField id="outlined-basic" label="Password" variant="outlined" name="pass" type="password" onChange={handleChange} />
+          <TextField id="outlined-basic" label="Repeat Password" variant="outlined" name="repeat" type="password" onChange={handleChange} />
 
           <Grid container className={classes.grid}>
             <InputLabel id="label">Gender</InputLabel>
-            <Select labelId="label" id="select" onChange={handleChange}>
-              <MenuItem value="male">Male</MenuItem>
-              <MenuItem value="female">Female</MenuItem>
+            <Select labelId="label" id="select" onChange={handleChange} defaultValue="male">
+              <MenuItem key="male" value="male">Male</MenuItem>
+              <MenuItem key="female" value="female">Female</MenuItem>
             </Select>
 
-            <TextField 
+            <TextField
+              name="birthdate"
               onChange={handleChange}
               id="date"
               label="Birthday"
@@ -111,7 +117,7 @@ export default function SignUp(props) {
               }}
             />
           </Grid>
-          <Button variant="outlined" color="primary" type="submit">
+          <Button variant="outlined" color="primary" type="submit" onClick={handleSubmit}>
             Sign Up
           </Button>
         </FormGroup >

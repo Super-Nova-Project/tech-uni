@@ -1,15 +1,13 @@
 const axios = require('axios').default;
 const api = 'https://eraser-401.herokuapp.com/';
 
-export const signUp = () => async (dispatch, state) => {
-  // 1- get the remote data with superagent
-  // 2- then dispatch an action with the response after we get it.
+export const signUp = () => (dispatch, state) => {
   console.log("inside signUp");
   console.log(dispatch);
-  console.log(state);
+  console.log({state});
 
   axios.post(`${api}/signup`, {
-    email: state.username,
+    email: state.email,
     password: state.password,
     firstName: state.firstName,
     lastName: state.lastName,
@@ -18,10 +16,12 @@ export const signUp = () => async (dispatch, state) => {
   })
     .then(function (response) {
       console.log(response);
+      dispatch(postAction(response.body));
     })
     .catch(function (error) {
       console.log(error);
     });
+    
 }
 
 export const postAction = payload => {
