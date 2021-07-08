@@ -146,7 +146,7 @@ export default function Header() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleMobileMenuOpen}>
         <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" >
 
           <AccountCircle />
@@ -236,7 +236,7 @@ export default function Header() {
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-              <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} className= {classes.icons} >
+              <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleMobileMenuOpen} className= {classes.icons} >
                 <AccountCircle />
               </IconButton>
             </div>
@@ -247,6 +247,7 @@ export default function Header() {
               <IconButton aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit" >
                 <MoreIcon />
               </IconButton>
+            </div>
             </div>
           </Toolbar>
         </AppBar>
