@@ -9,21 +9,24 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-
+import { Switch, Route, Link } from "react-router-dom";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import SignIn from '../auth/SignIn';
+import SignUp from '../auth/SignUp';
+import Logo from './Logo'
 
 const appTheme = createTheme({
   palette: {
     primary: {
       light: '#6179b9',
-      main: '#212c4a',
+      main: '#ffffff',
       dark: '#141a2c',
       contrastText: '#fff',
     },
     secondary: {
       light: '#f6ee34',
-      main: '#eee40a',
+      main: '#9ccac5',
       dark: '#bdb508',
       contrastText: '#000',
     },
@@ -36,11 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    color:appTheme.palette.secondary.main
+    color: appTheme.palette.secondary.main
   },
-  title: {
-    maxWidth: 230,
-  },
+
   inputRoot: {
     color: appTheme.palette.primary.light,
   },
@@ -66,10 +67,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  header:{
-    backgroundColor:appTheme.palette.primary.main,
-    height: '15vh'
-  }, 
+  header: {
+    backgroundColor: appTheme.palette.primary.main,
+    height: '20vh'
+  },
   icons: {
     color: appTheme.palette.secondary.main
   }
@@ -80,14 +81,27 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElSignin, setAnchorElSignin] = React.useState(null);
+  const [anchorElSignup, setAnchorElSignup] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleSignIn = (event) => {
+    setAnchorElSignin(event.currentTarget);
+    console.log(anchorElSignin);
   };
+
+  const handleSignUp = (event) => {
+    setAnchorElSignup(event.currentTarget);
+    console.log(anchorElSignup);
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log(anchorEl);
+  };
+
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -97,7 +111,6 @@ export default function Header() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -132,7 +145,7 @@ export default function Header() {
       <MenuItem>
         <IconButton aria-label="show 4 new mails" >
           <Badge badgeContent={4} >
-            <MailIcon/>
+            <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -145,7 +158,7 @@ export default function Header() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleClick}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -169,15 +182,35 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <img src="logo1.png" alt="logo" className={classes.title} />
+          <Logo />
+
           <div className={classes.grow} />
+          <div className={classes.auth}>
+            <ul>
+              <li>
+                <Link to="/signin" onClick={handleSignIn}>Sign In</Link>
+              </li>
+              <li>
+                <Link to="/signup" onClick={handleSignUp}>Sign Up</Link>
+              </li>
+            </ul>
+            <Switch>
+              <Route exact path="/signin" >
+                <SignIn anchorElSignin={anchorElSignin} />
+              </Route>
+              <Route path="/signup">
+                <SignUp anchorElSignup={anchorElSignup} />
+              </Route>
+
+            </Switch>
+          </div>
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails"  className= {classes.icons}>
+            <IconButton aria-label="show 4 new mails" className={classes.icons}>
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" className= {classes.icons}>
+            <IconButton aria-label="show 17 new notifications" className={classes.icons}>
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -187,8 +220,8 @@ export default function Header() {
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              className= {classes.icons}
+              onClick={handleClick}
+              className={classes.icons}
             >
               <AccountCircle />
             </IconButton>
