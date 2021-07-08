@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
+import { Button } from '@material-ui/core';
 import { Switch, Route, Link } from "react-router-dom";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -73,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
   },
   icons: {
     color: appTheme.palette.secondary.main
+  },
+  button: {
+    marginLeft: 180,
   }
 }));
 
@@ -117,15 +121,7 @@ export default function Header() {
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
+    <Menu anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={menuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMenuOpen} onClose={handleMenuClose} >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -133,15 +129,7 @@ export default function Header() {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+    <Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose} >
       <MenuItem>
         <IconButton aria-label="show 4 new mails" >
           <Badge badgeContent={4} >
@@ -158,12 +146,9 @@ export default function Header() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleClick}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-        >
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" >
+
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -172,6 +157,7 @@ export default function Header() {
   );
 
   return (
+    <>
     <div className={classes.grow}>
       <AppBar position="static" className={classes.header} >
         <Toolbar>
@@ -235,12 +221,38 @@ export default function Header() {
               color="inherit"
             >
               <MoreIcon />
+
             </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
+            <img src="logo1.png" alt="logo" className={classes.title} />
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <IconButton aria-label="show 4 new mails"  className= {classes.icons}>
+                <Badge badgeContent={4} color="secondary">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton aria-label="show 17 new notifications" className= {classes.icons}>
+                <Badge badgeContent={17} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleProfileMenuOpen} className= {classes.icons} >
+                <AccountCircle />
+              </IconButton>
+            </div>
+            <div className={classes.button}>
+              <Button variant='contained' color='primary'> Login </Button>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit" >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </div>
+    </>
   );
 }
