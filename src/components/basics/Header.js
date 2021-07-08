@@ -248,10 +248,12 @@ export default function Header() {
                 <MoreIcon />
               </IconButton>
             </div>
+            </div>
           </Toolbar>
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
+      
       </div>
     </>
   );
