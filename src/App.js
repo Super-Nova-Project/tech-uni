@@ -1,16 +1,27 @@
 import React from 'react';
 import Header from './components/basics/Header.js';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Main from './components/Main-page/Main.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthProvider from './context/authContext';
+import SignUp from './components/auth/SignUp'
 
 function App() {
   return (
 
     <BrowserRouter>
-      <Header />
-    <Main />
+      <AuthProvider>
+        <Header />
+        <Switch>
+          <Route exact path="/signup">
+          <SignUp/>
+          </Route>
+          <Route exact path="/">
+        <Main />
+          </Route>
+        </Switch>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

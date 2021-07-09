@@ -1,32 +1,41 @@
 const axios = require('axios').default;
-const api = 'https://eraser-401.herokuapp.com/';
+const api = 'https://eraser-401.herokuapp.com';
 
-export const signUp = () => (dispatch, state) => {
+
+export const signUp = (data) => (dispatch, state) => {
   console.log("inside signUp");
-  console.log(dispatch);
-  console.log({state});
-
-  axios.post(`${api}/signup`, {
-    email: state.email,
-    password: state.password,
-    firstName: state.firstName,
-    lastName: state.lastName,
-    gender: state.gender,
-    birthDate: state.birthDate
+  // console.log(dispatch);
+  console.log('-i-f-sg-dsf-wsef-ds-',data);
+  let obj = {
+    email: data.email,
+    password: data.password,
+    firstName: data.firstName,
+    lastName: data.lastName
+  }
+  console.log('my obj', obj);
+  axios( {
+    method: 'post',
+        url: `/signup`,
+        mode: 'cors',
+        baseURL: api,
+        data: JSON.stringify(obj),
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-origin': api
+        }
   })
-    .then(function (response) {
-      console.log(response);
-      dispatch(postAction(response.body));
+    .then((response)=> {
+      console.log(response.data.user);
+      dispatch(postAction(response.data));
     })
     .catch(function (error) {
       console.log(error);
     });
-    
 }
 
 export const postAction = payload => {
   return {
-    type: 'POST',
+    type: 'POSTUSER',
     payload: payload
   }
 }
