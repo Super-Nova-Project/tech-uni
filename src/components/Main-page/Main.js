@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Carousel } from 'react-bootstrap';
 import { Typography } from '@material-ui/core/';
+import { AuthContext } from '../../context/authContext';
+import LogMain from './logMain';
 
 const image1 = 'https://images.pexels.com/photos/4145190/pexels-photo-4145190.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 const image2 = 'https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
@@ -10,15 +12,15 @@ const image3 = 'https://images.pexels.com/photos/3059748/pexels-photo-3059748.jp
 const useStyles = makeStyles({
     carousel: {},
     image_one: {
-        width: 1370,
+        width: '100%',
         height: 500,
     },
     image_two: {
-        width: 1370,
+        width: '100%',
         height: 500,
     },
     image_third: {
-        width: 1370,
+        width: '100%',
         height: 500,
     },
     text: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 export default function Main(props){
+    const context = useContext(AuthContext)
 
     const [ toggleState, setToggleState ] = useState(1);
 
@@ -37,6 +40,10 @@ export default function Main(props){
     const classes = useStyles();
 
     return(
+    <> 
+    { context.loggedIn? (
+        <LogMain/>
+    ):(
         <>
             <div>
                 <Carousel fade className={classes.carousel}>
@@ -58,5 +65,9 @@ export default function Main(props){
                 </Typography>
             </div>
         </>
+    )
+    
+}
+</> 
     )
 }

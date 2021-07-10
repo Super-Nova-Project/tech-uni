@@ -8,6 +8,7 @@ import AuthProvider from './context/authContext';
 import SignUp from './components/auth/SignUp';
 import Create from './components/courses/create.js';
 import Join from './components/courses/join.js';
+import OneCourse from './components/courses/course';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route exact path="/join-course">
             <Join />
+          </Route>
+          <Route exact path="/course/:name">
+            <OneCourse />
           </Route>
         </Switch>
       </AuthProvider>

@@ -29,7 +29,7 @@ export const signUp = (data) => (dispatch, state) => {
       dispatch(postAction(response.data));
     })
     .catch(function (error) {
-      console.log(error);
+      console.log('in Eror',error);
     });
 }
 

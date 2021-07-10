@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { AuthContext } from '../../context/authContext';
 import {
     Typography,
     TextField,
@@ -12,22 +13,16 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import useForm from '../hooks/form'
 import { signUp } from '../../features/actions/authActions'
-import Modal from '@material-ui/core/Modal';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Avatar from '@material-ui/core/Avatar';
-// import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-// import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-// import Typography from '@material-ui/core/Typography';
-// import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 function Copyright() {
@@ -87,6 +82,7 @@ export default function SignUp() {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const [handleSubmit, handleChange, values] = useForm(getData);
+    const context = useContext(AuthContext)
     function getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
@@ -168,7 +164,7 @@ export default function SignUp() {
     function getData(data) {
         console.log(data, '----------');
 
-        dispatch(signUp(data))
+        context.signup(data)
         setOpen(false);
         handleReset()
     }

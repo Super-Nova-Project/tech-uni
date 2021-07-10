@@ -53,7 +53,7 @@ const Create = ()=>{
                 headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Allow-origin': api,
-                   Authorization: `Bearer ${token}`,
+                   Authorization: `Bearer ${token}`
                 }
         })
         .then((response)=> {
