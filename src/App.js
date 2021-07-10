@@ -5,7 +5,9 @@ import './App.css';
 import Main from './components/Main-page/Main.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from './context/authContext';
-import SignUp from './components/auth/SignUp'
+import SignUp from './components/auth/SignUp';
+import Create from './components/courses/create.js';
+import Join from './components/courses/join.js';
 
 function App() {
   return (
@@ -15,10 +17,16 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/signup">
-          <SignUp/>
+            <SignUp/>
           </Route>
           <Route exact path="/">
-        <Main />
+            <Main />
+          </Route>
+          <Route exact path="/create-course">
+            <Create />
+          </Route>
+          <Route exact path="/join-course">
+            <Join />
           </Route>
         </Switch>
       </AuthProvider>
