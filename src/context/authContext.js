@@ -7,7 +7,7 @@ export const AuthContext = React.createContext();
 
 function AuthProvider (props) {
     const [user, setUser] = useState({
-        loggedIn: true,
+        loggedIn: false,
         user: {},
         login, 
         logout, 
