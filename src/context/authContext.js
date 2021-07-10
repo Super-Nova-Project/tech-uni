@@ -2,10 +2,12 @@ import React,{useState, useEffect} from 'react';
 import cookie from 'react-cookies';
 import base64 from 'base-64';
 import jwt from 'jsonwebtoken';
+import {useHistory} from 'react-router-dom';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 export const AuthContext = React.createContext();
 
 function AuthProvider (props) {
+    const history = useHistory()
     const [user, setUser] = useState({
         loggedIn: false,
         user: {},
@@ -33,23 +35,26 @@ function AuthProvider (props) {
         // decode ==> does not need the secret
     }
 
-    async function signup (username, password, role)  {
-        // send username:password encoded -> add them to the Authorization header
+    async function signup (userData)  {
+        // send username:password encoded -> add them to the 
         // prefixed with Basic XXXencoded_valueXXX
         const obj = {
-            username, password, role
+            ...userData
         }
         const result = await fetch(`${API_SERVER}/signup`, {
             method: 'post',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-origin': API_SERVER
             },
             body: JSON.stringify(obj)
         });
 
         let data = await result.json();
+        if(data) validateToken(data.token)
         console.log('ishaq------s-a-d-a-sd',data);
+        history.push('/')
         // validateToken(data.token);
         // verify ==> with the secret
         // decode ==> does not need the secret

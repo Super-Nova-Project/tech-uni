@@ -20,6 +20,7 @@ import {AuthContext} from '../../context/authContext';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import {useHistory} from 'react-router-dom';
 
 const appTheme = createTheme({
   palette: {
@@ -73,49 +74,84 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   header: {
+    position: 'relative',
     backgroundColor: appTheme.palette.primary.main,
-    height: '20vh'
+    height: '20vh',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
   },
   icons: {
     color: appTheme.palette.secondary.main
   },
-  button: {
-    marginLeft: 180,
+  // button: {
+  //   marginLeft: 180,
+  // },
+  auth: {
+    position: 'absolute',
+    top: '50%',
+  // -ms-transform: translateY(-50%),
+    transform: 'translateY(-50%)',
+    right: 20
+
   }
 }));
 
 
 
 export default function Header() {
-  const context = useContext(AuthContext); 
+  const context = useContext(AuthContext);
   const classes = useStyles();
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElSignin, setAnchorElSignin] = React.useState(null);
   const [anchorElSignup, setAnchorElSignup] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     console.log('---tabs---',newValue);
+    console.log('---history---',history);
     setValue(newValue);
+    if (newValue == 0) {
+      history.push('/')
+    }else if (newValue == 1) {
+      history.push('/create-course')
+    } else if (newValue == 2) {
+      history.push('/join-course')
+    }else if (newValue == 3) {
+      history.push('/about-us')
+    }
+  };
+  const handleChanges = (event, newValue) => {
+    console.log('---tabs---',newValue);
+    console.log('---history---',history);
+    setValue(newValue);
+    if (newValue == 0) {
+      history.push('/')
+    }else if (newValue == 1) {
+      history.push('/signup')
+    } else if (newValue == 2) {
+      history.push('/about-us')
+    }
   };
 
-  const handleSignIn = (event) => {
-    setAnchorElSignin(event.currentTarget);
-    console.log(anchorElSignin);
-  };
+  // const handleSignIn = (event) => {
+  //   setAnchorElSignin(event.currentTarget);
+  //   console.log(anchorElSignin);
+  // };
 
-  const handleSignUp = (event) => {
-    setAnchorElSignup(event.currentTarget);
-    console.log(anchorElSignup);
-  };
+  // const handleSignUp = (event) => {
+  //   setAnchorElSignup(event.currentTarget);
+  //   console.log(anchorElSignup);
+  // };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    console.log(anchorEl);
-  };
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   console.log(anchorEl);
+  // };
 
 
   const handleMobileMenuClose = () => {
@@ -181,110 +217,42 @@ export default function Header() {
           </IconButton>
           <Logo />
 
-          {/* <div className={classes.grow} /> */}
+        </Toolbar>
           <div className={classes.auth}>
                 <SignIn anchorElSignin={anchorElSignin} />
             
           </div>
-          {/* <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" className={classes.icons}>
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" className={classes.icons}>
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleClick}
-              className={classes.icons}
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-
-            </IconButton>
-            <img src="logo1.png" alt="logo" className={classes.title} />
-            <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 4 new mails"  className= {classes.icons}>
-                <Badge badgeContent={4} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton aria-label="show 17 new notifications" className= {classes.icons}>
-                <Badge badgeContent={17} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton edge="end" aria-label="account of current user" aria-controls={menuId} aria-haspopup="true" onClick={handleMobileMenuOpen} className= {classes.icons} >
-                <AccountCircle />
-              </IconButton>
-            </div>
-            <div className={classes.button}>
-              <Button variant='contained' color='primary'> Login </Button>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-label="show more" aria-controls={mobileMenuId} aria-haspopup="true" onClick={handleMobileMenuOpen} color="inherit" >
-                <MoreIcon />
-              </IconButton>
-            </div>
-            </div>*/}
-          
-        {/* {renderMobileMenu} */}
-        {/* {renderMenu} */}
-        </Toolbar>
         </AppBar>
       
       </div> 
       <Paper square>
-      <Tabs
+      {context.loggedIn ? (
+        <Tabs
         value={value}
         indicatorColor="primary"
         textColor="primary"
         onChange={handleChange}
-        aria-label="disabled tabs example"
-      >{context.loggedIn ? (
-        <>
-        <Link to="/" >
-        <Tab label="Home" />
-        </Link>
-        <Link to="/create-course" >
+        // aria-label="disabled tabs example"
+      >
+        <Tab label="Home"/>
         <Tab label="Create Course" />
-        </Link>
-        <Link to="/join-course" >
         <Tab label="Join Course" />
-        </Link>
-        </>
+        <Tab label="About Us" />
+        </Tabs>
       ): (
-        <>
-        <Link to="/" >
+        <Tabs
+        value={value}
+        indicatorColor="primary"
+        textColor="primary"
+        onChange={handleChanges}
+        // aria-label="disabled tabs example"
+      >
         <Tab label="Home" />
-        </Link>
-        <Link to="/signup" >
         <Tab label="SignUp" />
-        </Link>
-        </>
+        <Tab label="About Us" />
+        </Tabs>
       )}
-      <Link to="/about-us" >
-      <Tab label="About Us" />
-      </Link>
-      </Tabs>
+      
     </Paper>
     </>
   );
