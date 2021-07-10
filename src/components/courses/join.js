@@ -5,7 +5,11 @@ import { makeStyles } from "@material-ui/core";
 import { Form } from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
-import useForm from '../hooks/form'
+import useForm from '../hooks/form';
+import cookie from 'react-cookies';
+
+const axios = require('axios').default;
+const api = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles({
     text:{
@@ -26,10 +30,35 @@ const Join = ()=>{
     const [handleSubmit, handleChange] = useForm(callback);
     const history = useHistory();
     const classes = useStyles();
+    const token = cookie.load('auth-token');
 
-    function callback(value){
-        console.log('side inside the join course', value);
-        history.push('/create-course');
+    function callback(data){
+        //console.log('side inside the join course', data);
+        let obj = {
+            id: data.id,
+        }
+        console.log('the data is', data);
+        console.log('my obj', obj);
+        axios( {
+            method: 'post',
+                url: `/join-course`,
+                mode: 'cors',
+                baseURL: api,
+                data: JSON.stringify(obj),
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Allow-origin': api,
+                   Authorization: `Bearer ${token}`,
+                }
+        })
+        .then((response)=> {
+            console.log('inside the then', response.data);
+            history.push('/create-course');
+          })
+          .catch(function (error) {
+              console.log(error);
+            });
+        console.log('inside the callback', data);
     }
 
     return (
@@ -37,7 +66,7 @@ const Join = ()=>{
             <Form onSubmit={handleSubmit}>
                 <Typography className={classes.text} > Join Your Course </Typography>
                     <br/>
-                <TextField name='name-course' type='text' className={classes.name} label='id number' onChange={handleChange} />
+                <TextField name='id' type='text' className={classes.name} label='id' onChange={handleChange} />
                     <br/>
                 <Button type='submit' className={classes.button} variant='contained' color='primary' > submit </Button>
             </Form>
