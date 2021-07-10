@@ -54,6 +54,7 @@ export default function LogMain() {
             let arraya = await c.json();
             console.log('in my courses', arraya);
             setCourses(arraya)
+            console.log('my courses', courses);
         })
     }, [])
 
