@@ -88,6 +88,7 @@ export default function SignUp() {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [alert, setAlert] = React.useState(false);
   const [handleSubmit, handleChange, values] = useForm(getData);
   function getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -288,6 +289,14 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </Grid>
+            <div>
+              <Show condition={alert}>
+                <Alert severity="error">
+                  <AlertTitle>Error</AlertTitle>
+                  This is invalid Email address — <strong></strong>
+                </Alert>
+              </Show>
+            </div>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -326,14 +335,7 @@ export default function SignUp() {
             </Grid>
           </Grid>
         </form>
-        <div>
-          <Show condition={state.isValid}>
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              This is invalid Email address — <strong></strong>
-            </Alert>
-          </Show>
-        </div>
+
       </div>
       <Box mt={5}>
         <Copyright />

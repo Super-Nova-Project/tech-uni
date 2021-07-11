@@ -50,8 +50,8 @@ async function validteEmail(email) {
   })
     .then(data => data.json())
     .then(data => {
-      // console.log({ data })
-      success = data.success;
+      console.log({ data })
+      success = data.smtp_check? data.smtp_check: false;
     })
     .catch(console.error);
   // console.log({ success })
