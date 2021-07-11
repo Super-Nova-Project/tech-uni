@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './components/basics/Header.js';
+import Footer from './components/basics/Footer.js';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Main from './components/Main-page/Main.js';
@@ -29,7 +30,8 @@ function App() {
             <Join />
           </Route>
         </Switch>
-      </AuthProvider>
+       
+      </AuthProvider> <Footer/>
     </BrowserRouter>
   );
 }
