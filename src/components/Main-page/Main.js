@@ -18,15 +18,15 @@ const image3 =
 const useStyles = makeStyles({
   carousel: {},
   image_one: {
-    width: 1370,
+    width: '100%',
     height: 520,
   },
   image_two: {
-    width: 1370,
+    width: '100%',
     height: 520,
   },
   image_third: {
-    width: 1370,
+    width: '100%',
     height: 520,
   },
   text: {
@@ -44,6 +44,7 @@ export default function Main(props) {
   const classes = useStyles();
 
   return (
+      <>
     {context.loggedIn? (
      <LogMain/>
      ):
@@ -203,6 +204,6 @@ export default function Main(props) {
     </>
   )
 }
-    
+    </>
   );
 }
