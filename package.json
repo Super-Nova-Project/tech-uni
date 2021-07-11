@@ -24,8 +24,10 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-slick": "^0.28.1",
     "sass": "^1.35.2",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

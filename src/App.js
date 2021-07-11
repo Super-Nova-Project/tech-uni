@@ -4,6 +4,8 @@ import Footer from './components/basics/Footer.js';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Main from './components/Main-page/Main.js';
+import AboutUs from './components/basics/about-us.js';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from './context/authContext';
 import SignUp from './components/auth/SignUp';
@@ -32,6 +34,9 @@ function App() {
           </Route>
           <Route exact path="/course/:id">
             <OneCourse />
+          </Route>
+          <Route exact path="/about-us">
+            <AboutUs />
           </Route>
         </Switch>
        
