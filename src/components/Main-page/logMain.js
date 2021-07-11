@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCourse } from '../../features/reducers/currentCourse';
 import { useHistory } from "react-router";
 import cookie from 'react-cookies';
+import Paper from '@material-ui/core/Paper';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
-        minWidth: 275,
+        maxWidth: 350
     },
     bullet: {
         display: 'inline-block',
@@ -27,7 +28,23 @@ const useStyles = makeStyles({
     pos: {
         marginBottom: 12,
     },
-});
+    cont: {
+        width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: ''
+    },
+    paper: {
+        display: 'flex',
+        flexDirection: 'column',
+        '& > *': {
+          margin: theme.spacing(0),
+          width: '100%',
+          height: '100%',
+        },
+        margin: theme.spacing(2),
+      },
+}));
 
 export default function LogMain() {
     const history = useHistory()
@@ -38,7 +55,7 @@ export default function LogMain() {
     const dispatch = useDispatch({setCourse})
     const handleCourse = myCourse => {
         dispatch(setCourse(myCourse))
-        history.push(`/course/${myCourse.name}`)
+        history.push(`/course/${myCourse.id}`)
     }
     useEffect(() => {
         const token = cookie.load('auth-token');
@@ -59,10 +76,10 @@ export default function LogMain() {
     }, [])
 
     return (
-        <>
+        <div className={classes.cont}>
         {courses.map(course => {
                 return (
-                    <Card className={classes.root}>
+                    <Card className={classes.paper + ' col-md-3'}>
                         <CardContent>
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
                                 name
@@ -85,6 +102,6 @@ export default function LogMain() {
 
             })
         }
-        </>
+        </div>
     );
 }
