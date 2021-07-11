@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from 'react';
 import { makeStyles } from "@material-ui/styles";
 import { Carousel } from "react-bootstrap";
 import { Typography } from "@material-ui/core/";
 import { Link } from "react-router-dom";
 import "./Main.scss";
+import { AuthContext } from '../../context/authContext';
+import LogMain from './logMain';
+
 
 const image1 =
   "https://lighthouse-tc.com/wp-content/uploads/2020/08/e-learning-header-bg.jpg";
@@ -33,7 +36,7 @@ const useStyles = makeStyles({
 
 export default function Main(props) {
   const [toggleState, setToggleState] = useState(1);
-
+  const context = useContext(AuthContext);
   const toggleTab = (index) => {
     setToggleState(index);
   };
@@ -41,7 +44,11 @@ export default function Main(props) {
   const classes = useStyles();
 
   return (
-    <>
+    {context.loggedIn? (
+     <LogMain/>
+     ):
+  (
+  <>
       <div>
         <Carousel fade className={classes.carousel}>
           <Carousel.Item interval={2000}>
@@ -194,5 +201,8 @@ export default function Main(props) {
         </div>
       </section>
     </>
+  )
+}
+    
   );
 }

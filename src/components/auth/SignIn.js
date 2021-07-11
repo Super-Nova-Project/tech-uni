@@ -38,7 +38,7 @@ function Login (props) {
             <Form inline className="ml-auto" onSubmit={handleSubmit} id="signinForm">
               <FormControl
                 className="mr-sm-2"
-                placeholder="username"
+                placeholder="email"
                 type="text"
                 required
                 name="username"
