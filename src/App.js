@@ -29,7 +29,7 @@ function App() {
           <Route exact path="/join-course">
             <Join />
           </Route>
-          <Route exact path="/course/:name">
+          <Route exact path="/course/:id">
             <OneCourse />
           </Route>
         </Switch>
