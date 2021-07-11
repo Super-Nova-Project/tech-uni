@@ -39,7 +39,7 @@ export default function CenteredGrid() {
         setCurrent(data)
     })
       
-  }, [])
+  }, [id])
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
