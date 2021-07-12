@@ -70,11 +70,11 @@ const Create = ()=>{
         <>
             <Form onSubmit={handleSubmit}>
                     <Typography className={classes.text} > Create Course </Typography>
-                    <br/>
+                        <br/>
                     <TextField name='name_course' type='text' className={classes.name} label='name course' onChange={handleChange} />
-                    <br/>
+                        <br/>
                     <TextField name='text_area' type='text' className={classes.multiline} label='description' multiline rows={6} defaultValue='text' variant='outlined' onChange={handleChange} />
-                    <br/>
+                        <br/>
                     <Button type='submit' className={classes.button} variant='contained' color='primary' > submit </Button>
             </Form>
         </>

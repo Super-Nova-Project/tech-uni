@@ -3,8 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Paper, Typography, Grid} from '@material-ui/core/';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
+import Grade from '../grade/exam.js';
+import Delete from './deletecorse.js';
 import CreateAssignment from './assignment/create';
 import CreateQuiz from './quiz/create';
+
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -25,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CenteredGrid() {
   const classes = useStyles();
-  const [current, setCurrent] = useState({})
+  const [current, setCurrent] = useState({});
+  const [ grade, setGrade ] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -41,11 +45,14 @@ export default function CenteredGrid() {
     }).then(async (c) => {
         let data = await c.json();
         console.log('in my courses', data);
-        setCurrent(data)
+        setCurrent(data);
+        let gradeData = data.grades;
+        setGrade([...gradeData]);
+        console.log('inside dsafsad', gradeData);
     })
       
   }, [])
-  return (
+  return (<>
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -58,9 +65,11 @@ export default function CenteredGrid() {
             </Typography>
             <CreateAssignment id={id} />
             <CreateQuiz id={id}/>
+              <Delete /> 
+              <Grade/>
           </Paper>
         </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   );
 }
