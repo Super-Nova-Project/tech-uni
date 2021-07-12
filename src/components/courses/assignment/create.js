@@ -6,6 +6,7 @@ import useForm from '../../hooks/form';
 import cookie from 'react-cookies';
 import { TextField, Input } from '@material-ui/core';
 import { useHistory } from 'react-router';
+import fs from 'fs';
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 function rand() {
@@ -73,7 +74,8 @@ export default function CreateAssignment({ id }) {
 
   const onFileChange = event => {
     // Update the state 
-    setAssignmentFile(event.target.files[0]);
+    let fileBuffer = fs.readFile(event.target.files[0], function (err, buffer) { })
+    setAssignmentFile(fileBuffer);
   };
   const onFileUpload = () => {
     // Create an object of formData 
@@ -96,7 +98,7 @@ export default function CreateAssignment({ id }) {
   async function newAssignment(data) {
     onFileUpload();
     // setFile(data);
-    data = {...data , assignmentFile}
+    data = { ...data, assignmentFile }
     console.log(data, ',,,,,')
 
     const token = cookie.load('auth-token');
@@ -115,12 +117,12 @@ export default function CreateAssignment({ id }) {
     console.log('in assign result', result);
   }
 
-  function upload(){  
+  function upload() {
 
-  
+
     const fileData = () => {
       if (assignmentFile) {
-  
+
         return (
           <div>
             <h2>File Details:</h2>
@@ -142,14 +144,14 @@ export default function CreateAssignment({ id }) {
       }
     };
 
-      return (
+    return (
+      <div>
         <div>
-          <div>
-            <Input type="file" name="assignmentFile" onChange={onFileChange} />
-          </div>
-          {fileData()}
+          <Input type="file" name="assignmentFile" onChange={onFileChange} />
         </div>
-      );
+        {fileData()}
+      </div>
+    );
   }
   const body = (
     <div style={modalStyle} className={classes.paper}>
