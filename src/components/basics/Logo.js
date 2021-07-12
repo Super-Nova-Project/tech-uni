@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   logo: {
-    maxWidth: 130,
+    maxWidth: 200,
   },
 }));
 
@@ -13,7 +13,7 @@ export default function Logo() {
   const classes = useStyles();
   return (
     <>
-      <img src="eraser.png" alt="logo" className={classes.logo} />
+      <img src="logo4.png" alt="logo" className={classes.logo} />
     </>
   )
 };

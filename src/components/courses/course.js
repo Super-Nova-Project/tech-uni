@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Paper, Typography, Grid} from '@material-ui/core/';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
-import Grade from '../grade/exam.js';
 import Delete from './deletecorse.js';
 import CreateAssignment from './assignment/create';
 import CreateQuiz from './quiz/create';
+import Leave from './leave'
 
 
 
@@ -67,8 +67,9 @@ export default function CenteredGrid() {
             <CreateAssignment id={id} />
             <CreateQuiz id={id}/>
               <Delete /> 
-              <Grade/>
+              {/* <Grade/> */}
           </Paper>
+          <Leave id={id}/>
         </Grid>
 
         </Grid>
