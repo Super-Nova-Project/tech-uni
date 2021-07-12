@@ -1,0 +1,109 @@
+/* _carousel.scss:226 */
+$carousel-caption-width : 100%;
+$carousel-caption-width:100%;
+$carousel-caption-color:#fff;
+
+h2{
+    position: absolute;
+    right: 85%;
+    bottom: 200px;
+    left: -6%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 8rem !important ; 
+
+}
+h5 {
+    position: absolute;
+    right: 85%;
+    bottom: 170px;
+    left: -5%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 2rem !important ; 
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+}
+
+.carousel-caption-2 h2 {
+    position: absolute;
+    right: 50%;
+    bottom: 370px;
+    left: 0%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 3.7rem !important ; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.carousel-caption-2 h5 {
+    position: absolute;
+    right: 85%;
+    bottom: 310px;
+    left: 7%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 3.6rem !important ; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-style: italic;
+}
+.carousel-caption-3 h2 {
+    position: absolute;
+    right: 50%;
+    bottom: 370px;
+    left: 52%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 3.6rem !important ; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.carousel-caption-3 h5 {
+    position: absolute;
+    right: 85%;
+    bottom: 350px;
+    left: 55%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 1rem !important ; 
+    text-overflow:clip;
+    font-style: italic;
+}
+.section{
+padding-top: 40px;
+padding-bottom: 40px;
+}
+.main-heading{
+    color: #007bff;
+    font-size: 26px;
+}
+.underline{
+    height: 0.4px;
+    width: 4rem;
+    background-color:#007bff ;
+    margin-top:10px ;
+    margin-bottom:10px ;
+}
+p{
+font-size: 14px;
+color: #262626;
+}

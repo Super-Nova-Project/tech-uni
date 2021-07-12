@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './components/basics/Header.js';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Footer from './components/basics/Footer.js';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+
 import './App.css';
 import Main from './components/Main-page/Main.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -37,7 +39,8 @@ function App() {
             <OneQuiz />
           </Route>
         </Switch>
-      </AuthProvider>
+       
+      </AuthProvider> <Footer/>
     </BrowserRouter>
   );
 }
