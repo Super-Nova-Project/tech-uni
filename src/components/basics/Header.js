@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   tabss: {
 
     width: '50%',
-=======
+
 
 
     margin: '0 auto',
