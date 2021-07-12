@@ -61,7 +61,7 @@ function Chat({ roomID }) {
       </div>
 
       <form onSubmit={onMessageSubmit}>
-        <button>Send Message</button>
+        <button className="roomButton" >Send Message</button>
 
         <div className="rowInput">
           <div className="name-field">

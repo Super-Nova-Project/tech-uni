@@ -1,11 +1,7 @@
 
-
-
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
-
-
 
 
 const OpenRooms = (props) => {
@@ -14,20 +10,18 @@ const OpenRooms = (props) => {
         const url = `${room.course}/${room.id}`
         history.push(`/course/${url}`);
     }
-
     function roomFunction() {
         return props.rooms.map((room) => {
             if (room.course === props.id) {
                 return (
                     <div>
-                       
-                        <button className="roomButton" onClick={() => test(room)}  >
+                        <Button type="button" variant="contained" color="primary"  onClick={() => test(room)}  >
                             {room.id}
-                        </button>
+                        </Button>
                     </div>
                 );
             } else {
-                return (<h3>no room available now </h3>)
+                return (<h3></h3>)
             }
         })
     }

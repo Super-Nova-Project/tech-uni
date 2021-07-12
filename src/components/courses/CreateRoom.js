@@ -2,6 +2,7 @@ import React from "react";
 import { v1 as uuid } from "uuid";
 import { useHistory } from "react-router-dom";
 import {socket} from './course'
+import { Button } from "@material-ui/core";
 
 const CreateRoom = (props) => {
     const history = useHistory();
@@ -12,7 +13,7 @@ const CreateRoom = (props) => {
     }
 
     return (
-        <button onClick={create}>Create room</button>
+        <Button type="button" variant="contained" color="primary" onClick={create}>Create room</Button>
     );
 };
 

@@ -10,7 +10,9 @@ import CreateAssignment from './assignment/create';
 import CreateQuiz from './quiz/create';
 import OpenRooms from './openRooms'
 import io from 'socket.io-client';
-
+import DeleteIcon from '@material-ui/icons/Delete';
+// import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +27,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  deleteRooms:{
+    marginLeft:"45%",
+  }
+  
 }));
 
 export const socket = io.connect('http://localhost:4000');
+// export const socket = io.connect('https://eraser-401.herokuapp.com');
 
 export default function CenteredGrid() {
   const classes = useStyles();
@@ -37,14 +44,11 @@ export default function CenteredGrid() {
   const { id } = useParams();
 
   useEffect(() => {
-    socket.emit('give me the rooms','hi')
+    socket.emit('give me the rooms', 'hi')
 
     socket.on('rooms', (data) => {
-      
       setRooms(data)
     })
-    
-
 
     const token = cookie.load('auth-token');
     fetch(`${API_SERVER}/course/${id}`, {
@@ -78,10 +82,18 @@ export default function CenteredGrid() {
               <CreateAssignment id={id} />
               <CreateRoom id={id} />
               <CreateQuiz id={id} />
+              <OpenRooms id={id} rooms={rooms} />
               <Delete />
               <Grade />
-              <OpenRooms id={id} rooms={rooms} />
             </Paper>
+            <Button
+                className={classes.deleteRooms}
+                variant="contained"
+                color="secondary"
+                startIcon={<DeleteIcon />}
+              >
+                Delete Rooms
+              </Button>
           </Grid>
 
         </Grid>

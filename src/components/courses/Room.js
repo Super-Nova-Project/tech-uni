@@ -4,6 +4,7 @@ import Peer from "simple-peer";
 import styled from "styled-components";
 import Chat from './Chat'
 import { useParams } from "react-router";
+import { Button } from "@material-ui/core";
 import "./Room.css";
 import "./Chat.css";
 
@@ -37,41 +38,20 @@ const videoConstraints = {
 const Room = (props) => {
     const [peers, setPeers] = useState([]);
     const socketRef = useRef();
-    const userVideo = useRef();
+    let userVideo = useRef();
     const peersRef = useRef([]);
     console.log('props.match', props);
     const roomID = props.match.params.roomID;
 
-    // function share() {
-    //     navigator.mediaDevices.getDisplayMedia({ video: videoConstraints, audio: true }).then(stream => {
-    //         userVideo.current.srcObject = stream;
+   
 
-    //         socketRef.current.emit('startShare')
+    useEffect(()=> {
+        return ()=> {
+            socketRef.current.emit('amountOnClick',socketRef.current.id)
+        }
+    }, []);
 
-    //         socketRef.current.on('all myUsers', (users) => {
-    //             console.log('users', users[roomID]);
-    //             const peers = [];
-    //             users[roomID].forEach((userID) => {
-    //                 if(userID!==socketRef.current.id){
-    //                     let peer = createPeer(userID,socketRef.current.id,  stream)
-    //                     peersRef.current=[];
-    //                     peersRef.current.push({
-    //                         peerID: userID,
-    //                         peer,
-    //                     })
-
-    //                     peers.push(peer)
-    //                 }
-    //                 console.log('0000000000000000', peersRef.current);  
-    //             })
-    //             setPeers([...peers])
-
-
-    //         })
-    //     })
-    // }
     useEffect(() => {
-
         socketRef.current = io.connect('https://new-medio1.herokuapp.com');
         // socketRef.current = io.connect('http://localhost:8000');
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
@@ -118,9 +98,24 @@ const Room = (props) => {
 
 
             socketRef.current.on('userLeft', id => {
-                const leftPeer = peersRef.current.find(obj => obj.peerID === id)
+                console.log('second user',id);
+                if(id===socketRef.current.id){ 
 
+                    function stopBothVideoAndAudio(stream) {
+                        stream.getTracks().forEach(function(track) {
+                            if (track.readyState == 'live') {
+                                track.stop();
+                            }
+                        });
+                    }
+                    stopBothVideoAndAudio(stream)
+                    socketRef.current.emit('close',id)
+                }
+
+                const leftPeer = peersRef.current.find(obj => obj.peerID === id)
+                   
                 if (leftPeer) {
+                
                     leftPeer.peer.destroy();
                 }
 
@@ -171,11 +166,10 @@ const Room = (props) => {
                     <StyledVideo controls muted ref={userVideo} autoPlay playsInline />
                     {peers.map((peer) => {
                         return (
-                            <Video controls key={peer.peerID} peer={peer.peer} />
+                            <Video  controls key={peer.peerID} peer={peer.peer} />
                         );
                     })}
                 </div>
-                {/* <button onClick={() => share()}>sadsadsadsad</button> */}
                 <Chat roomID={roomID} />
 
             </div>
