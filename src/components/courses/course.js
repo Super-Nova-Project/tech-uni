@@ -54,7 +54,7 @@ export default function CenteredGrid() {
                 {current.name}
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
-        {current.description}
+            {current.description}
             </Typography>
             <CreateAssignment id={id} />
             <CreateQuiz id={id}/>
