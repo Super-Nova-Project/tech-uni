@@ -5,6 +5,9 @@ import { useParams } from "react-router";
 import cookie from 'react-cookies';
 import Grade from '../grade/exam.js';
 import Delete from './deletecorse.js';
+import CreateAssignment from './assignment/create';
+import CreateQuiz from './quiz/create';
+
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -12,6 +15,9 @@ const API_SERVER = 'https://eraser-401.herokuapp.com';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    width: '90%',
+    margin: '5px auto',
+    
   },
   paper: {
     padding: theme.spacing(2),
@@ -46,22 +52,22 @@ export default function CenteredGrid() {
     })
       
   }, [])
-  return (
-    <>
-      <div className={classes.root}>
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-            <Typography variant="h2" gutterBottom>
-                  {current.name}
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom>
-                  {current.description}
-              </Typography>
+  return (<>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+          <Typography variant="h2" gutterBottom>
+                {current.name}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+        {current.description}
+            </Typography>
+            <CreateAssignment id={id} />
+            <CreateQuiz id={id}/>
               <Delete /> 
               <Grade/>
-            </Paper>
-          </Grid>
+          </Paper>
         </Grid>
       </div>
     </>
