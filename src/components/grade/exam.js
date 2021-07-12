@@ -11,7 +11,9 @@ import Paper from '@material-ui/core/Paper';
 import { Modal, Button } from 'react-bootstrap';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
-//import FormGrad from '../grade/form_table.js';
+import UpdateComp from './update'
+import { useHistory } from 'react-router';
+
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
@@ -29,6 +31,7 @@ function MyVerticallyCenteredModal(props) {
 
     const classes = useStyles();
     const [ grade, setGrade ] = React.useState([]);
+    const history = useHistory()
 
     const { id } = useParams();
 
@@ -50,24 +53,30 @@ function MyVerticallyCenteredModal(props) {
             console.log('inside exam component', array);
     })
     },[])
+    const handleDelete = email => {
+      const token = cookie.load('auth-token');
+      fetch(`${API_SERVER}/course/${id}/delete-student`, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-origin': API_SERVER,
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({email}),
+    }).then(async (c) => {
+        let arraya = await c.json();
+        console.log('in my delete courses----', arraya);
+        history.push(`/course/${id}`)
+    })
+    }
 
     return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Grade
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
             <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <h3> Grade </h3>
+        <UpdateComp/>
       </TableHead>
       <TableBody>
           <TableRow>
@@ -80,6 +89,7 @@ function MyVerticallyCenteredModal(props) {
             <TableCell align="right">Two Quiz</TableCell>
             <TableCell align="right">Three Quiz</TableCell>
             <TableCell align="right">Over All</TableCell>
+            <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableBody>
         <TableFooter>
@@ -96,16 +106,19 @@ function MyVerticallyCenteredModal(props) {
               <TableCell align="right">{row.quizTwo}</TableCell>
               <TableCell align="right">{row.quizThree}</TableCell>
               <TableCell align="right">{row.overAll}</TableCell>
+              <TableCell align="right">
+              <button
+                  className="btn btn-danger"
+                  onClick={()=>handleDelete(row.email)}
+                  >
+                  Delete This Student
+              </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableFooter>
       </Table>
     </TableContainer>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-      </Modal>
     );
   }
   
@@ -115,9 +128,6 @@ function MyVerticallyCenteredModal(props) {
   
     return (
       <>
-        <Button className={classes.button} variant="primary" onClick={() => setModalShow(true)}>
-          Grade
-        </Button>
   
         <MyVerticallyCenteredModal grade={props.grade} 
           show={modalShow}
