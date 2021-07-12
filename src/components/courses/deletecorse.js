@@ -3,6 +3,7 @@ import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles({
     button: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const Delete = () => {
-
+    const history = useHistory()
     const classes = useStyles();
     const [ deleteItem, setDeleteItem ] = React.useState([]);
 
@@ -23,7 +24,7 @@ const Delete = () => {
 
     const handleClick = () => {        
     const token = cookie.load('auth-token');
-    fetch(`${API_SERVER}/course/${id}`, {
+    fetch(`${API_SERVER}/course/${id}/delete`, {
         method: 'DELETE',
         mode: 'cors',
         headers: {
@@ -33,9 +34,8 @@ const Delete = () => {
         },
     }).then(async (c) => {
         let arraya = await c.json();
-        console.log('in my courses----', arraya);
-        setDeleteItem(arraya)
-        console.log('my courses-----', deleteItem);
+        console.log('in my delete courses----', arraya);
+        history.push('/')
     })
 }
 

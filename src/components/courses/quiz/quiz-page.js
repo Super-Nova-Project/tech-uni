@@ -69,7 +69,8 @@ export default function OneQuiz() {
   const [currentQuiz, setCurrentQuiz] = useState({});
   const [answers, setAnswers] = React.useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = React.useState({ question: '', options: [], correct_answer: '' });
+  const [currentQuestion, setCurrentQuestion] = React.useState({});
+  const [elem, setElem] = useState(null)
   // const [timeLeft, setTimeLeft] = useState(0);
   // const [timer, setTimer] = useState(0);
   // const [loading, setLoading] = React.useState(true);
@@ -78,6 +79,29 @@ export default function OneQuiz() {
   const [grade, setGrade] = useState(0);
   const { id, quizID } = useParams();
 
+  useEffect(() => {
+    const token = cookie.load('auth-token');
+    fetch(`${API_SERVER}/course/${id}`, {
+      method: 'get',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-origin': API_SERVER,
+        Authorization: `Bearer ${token}`
+      },
+    }).then(async (c) => {
+      let data = await c.json();
+      // console.log({quizID})
+      data.quizes.forEach(quiz => {
+        if (quiz._id == quizID) {
+        setCurrentQuiz(quiz);
+        console.log('in data base',currentQuiz);
+        let arr = shuffleArray(quiz.quizQuestions);
+        setCurrentQuestion(arr[0])
+        }
+      });
+    });
+  }, []);
 
   function renderQuiz() {
 
@@ -133,27 +157,7 @@ export default function OneQuiz() {
       </div>
     )
   }
-  useEffect(() => {
-    const token = cookie.load('auth-token');
-    fetch(`${API_SERVER}/course/${id}`, {
-      method: 'get',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-origin': API_SERVER,
-        Authorization: `Bearer ${token}`
-      },
-    }).then(async (c) => {
-      let data = await c.json();
-      // console.log({quizID})
-      data.quizes.forEach(quiz => {
-        if (quiz._id === quizID)
-          setCurrentQuiz(quiz);
-        let arr = shuffleArray(quiz.quizQuestions);
-        setCurrentQuestion(arr[currentQuestionIndex])
-      });
-    });
-  }, []);
+  
 
   let l = currentQuiz.quizQuestions ? currentQuiz.quizQuestions.length : 0;
 
@@ -168,15 +172,21 @@ export default function OneQuiz() {
   };
 
   const handleBack = () => {
-    // console.log('-1');
+    console.log('-1');
     setCurrentQuestionIndex((prevActiveStep) => prevActiveStep - 1);
     setCurrentQuestion(currentQuiz.quizQuestions[currentQuestionIndex]);
 
   };
 
   const handleNext = () => {
-    setCurrentQuestionIndex((prevActiveStep) => prevActiveStep + 1);
+    console.log('currentQuestionIndex', currentQuestionIndex);
+    setCurrentQuestionIndex(prev => prev+1);
+    console.log('currentQuestionIndex', currentQuestionIndex);
+    console.log('CurrentQuestion', currentQuestion);
     setCurrentQuestion(currentQuiz.quizQuestions[currentQuestionIndex]);
+    console.log('currentQuestion', currentQuestion);
+    const d = renderQuiz();
+    setElem(d)
   };
 
   const handleResult = () => {
@@ -185,6 +195,8 @@ export default function OneQuiz() {
   }
 
   const handleStart = () => {
+    const d = renderQuiz();
+    setElem(d)
     setStart(true);
   }
 
@@ -212,7 +224,7 @@ export default function OneQuiz() {
             </Show>
           </Paper>
           <Show condition={start}>
-            {renderQuiz()}
+            {elem}
           </Show>
         </Grid>
       </Grid>
