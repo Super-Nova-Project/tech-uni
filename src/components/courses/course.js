@@ -52,7 +52,8 @@ export default function CenteredGrid() {
     })
       
   }, [])
-  return (<>
+  return (
+  <>
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -61,13 +62,15 @@ export default function CenteredGrid() {
                 {current.name}
             </Typography>
             <Typography variant="subtitle1" gutterBottom>
-        {current.description}
+            {current.description}
             </Typography>
             <CreateAssignment id={id} />
             <CreateQuiz id={id}/>
               <Delete /> 
               <Grade/>
           </Paper>
+        </Grid>
+
         </Grid>
       </div>
     </>

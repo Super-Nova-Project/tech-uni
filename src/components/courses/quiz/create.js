@@ -76,8 +76,8 @@ export default function CreateQuiz({ id }) {
         const option1 = e.target.options[0].value;
         const option2 = e.target.options[1].value;
         const option3 = e.target.options[0].value;
-        let obj = {
-            question, answer, options : [answer, option1, option2, option3]
+        const obj = {
+            question,correct_answer:answer, options : [answer, option1, option2, option3]
         }
         setQuestionList(prev => [...prev, obj])
         e.target.reset()
