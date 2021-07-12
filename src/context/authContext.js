@@ -35,7 +35,7 @@ function AuthProvider (props) {
         // decode ==> does not need the secret
     }
 
-    async function signup (userData)  {
+    async function signup(userData)  {
         // send username:password encoded -> add them to the 
         // prefixed with Basic XXXencoded_valueXXX
         const obj = {
@@ -71,8 +71,6 @@ function AuthProvider (props) {
     function setAuthState  (loggedIn, user2, token)  {
         let obj = user2
         setUser(prev =>{return{...prev,loggedIn, user:{...obj}}});
-        console.log('11111111111', user2);
-        console.log('11111111111', user);
         // add the token to the browser cookies
         cookie.save('auth-token', token);
     }

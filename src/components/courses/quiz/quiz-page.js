@@ -9,14 +9,15 @@ import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
-import Show from '../../Show'
+import Show from '../../Show';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 // import {NavigateNext , ArrowBack} from '@material-ui/icons'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Timer from './timer';
 import Slide from '@material-ui/core/Slide';
-import { auto } from '@popperjs/core';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +38,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1, 1, 0, 0),
   },
-  result:{
-    marginTop:'5%',
-    textAlign:'center',
-    backgroundColor:'lightgrey'
+  result: {
+    marginTop: '5%',
+    textAlign: 'center',
+    backgroundColor: 'lightgrey'
   }
 }));
 
@@ -66,21 +67,22 @@ function shuffleArray(array) {
 
 export default function OneQuiz() {
   const classes = useStyles();
+  const token = cookie.load('auth-token');
+  const history = useHistory();
   const [currentQuiz, setCurrentQuiz] = useState({});
   const [answers, setAnswers] = React.useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = React.useState({});
-  const [elem, setElem] = useState(null)
+  const [currentQuestion, setCurrentQuestion] = React.useState({ question: '', options: [], correct_answer: '' });
   // const [timeLeft, setTimeLeft] = useState(0);
   // const [timer, setTimer] = useState(0);
-  // const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
   const [finish, setFinish] = useState(false);
   const [start, setStart] = useState(false);
   const [grade, setGrade] = useState(0);
   const { id, quizID } = useParams();
 
   useEffect(() => {
-    const token = cookie.load('auth-token');
+    console.log(loading)
     fetch(`${API_SERVER}/course/${id}`, {
       method: 'get',
       mode: 'cors',
@@ -93,14 +95,14 @@ export default function OneQuiz() {
       let data = await c.json();
       // console.log({quizID})
       data.quizes.forEach(quiz => {
-        if (quiz._id == quizID) {
-        setCurrentQuiz(quiz);
-        console.log('in data base',currentQuiz);
-        let arr = shuffleArray(quiz.quizQuestions);
-        setCurrentQuestion(arr[0])
+        if (quiz._id === quizID) {
+          setCurrentQuiz(quiz);
         }
+        setLoading(false)
       });
     });
+    console.log(loading)
+
   }, []);
 
   function renderQuiz() {
@@ -157,7 +159,7 @@ export default function OneQuiz() {
       </div>
     )
   }
-  
+
 
   let l = currentQuiz.quizQuestions ? currentQuiz.quizQuestions.length : 0;
 
@@ -166,7 +168,7 @@ export default function OneQuiz() {
     if (currentQuestion.correct_answer === answer) {
       setGrade(grade + 1);
     }
-    console.log(currentQuestion.correct_answer, grade, answer)
+    // console.log(currentQuestion.correct_answer, grade, answer)
     setAnswers([...answers, answer]);
 
   };
@@ -179,56 +181,104 @@ export default function OneQuiz() {
   };
 
   const handleNext = () => {
-    console.log('currentQuestionIndex', currentQuestionIndex);
-    setCurrentQuestionIndex(prev => prev+1);
-    console.log('currentQuestionIndex', currentQuestionIndex);
-    console.log('CurrentQuestion', currentQuestion);
+
+    setCurrentQuestionIndex(prev => prev + 1);
+    // Shuffle options
+    let options = shuffleArray(currentQuiz.quizQuestions[currentQuestionIndex].options)
+    currentQuiz.quizQuestions[currentQuestionIndex].options = options;
     setCurrentQuestion(currentQuiz.quizQuestions[currentQuestionIndex]);
-    console.log('currentQuestion', currentQuestion);
-    const d = renderQuiz();
-    setElem(d)
+    console.log({ currentQuestion })
   };
 
   const handleResult = () => {
-    console.log('finish')
     setFinish(true);
+    const token = cookie.load('auth-token');
+    const obj = {
+      solution: answers
+    }
+    //TO save the solution in the database
+    axios({
+      method: 'post',
+      url: `/course/${id}/${quizID}/submit-quiz`,
+      mode: 'cors',
+      baseURL: API_SERVER,
+      data: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-origin': API_SERVER,
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    //to save the grade in the database
+    axios({
+      method: 'post',
+      url: `/course/${id}/${quizID}/submit-quiz`,
+      mode: 'cors',
+      baseURL: API_SERVER,
+      data: JSON.stringify(obj),
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-origin': API_SERVER,
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log('finish')
   }
 
   const handleStart = () => {
-    const d = renderQuiz();
-    setElem(d)
+    let arr = shuffleArray(currentQuiz.quizQuestions);
+    console.log({ currentQuestion })
+    console.log({ arr })
+
+    let options = shuffleArray(arr[currentQuestionIndex].options)
+    arr[currentQuestionIndex].options = options;
+    setCurrentQuestion(arr[currentQuestionIndex])
     setStart(true);
+
   }
 
   return (
     <div className={classes.root}>
+
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            <Typography variant="h2" gutterBottom>
-              {currentQuiz.quizTitle}
-            </Typography>
-            <Show condition={!start}>
-              <Button onClick={handleStart}
-                className={classes.button}
-                variant="contained"
-                color="primary"
-                size="large"> Start Quiz
-              </Button>
+            <Show condition={loading}>
+              <CircularProgress />
             </Show>
-            <Show condition={start && !finish}>
-              <Typography variant="subtitle1" gutterBottom>
-                time remaining
-                <Timer initialMinute={currentQuiz.timer} initialSeconds={0} />
+            <Show condition={!loading}>
+              <Typography variant="h2" gutterBottom>
+                {currentQuiz.quizTitle}
               </Typography>
+              <Show condition={!start}>
+                <Button onClick={handleStart}
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  size="large"> Start Quiz
+                </Button>
+              </Show>
+              <Show condition={start && !finish}>
+                <Typography variant="subtitle1" gutterBottom>
+                  time remaining
+                  <Timer initialMinute={currentQuiz.timer} initialSeconds={0} finish={handleResult} />
+                </Typography>
+              </Show>
             </Show>
           </Paper>
           <Show condition={start}>
-            {elem}
+            {renderQuiz()}
+
           </Show>
         </Grid>
       </Grid>
-
     </div>
   );
 }
