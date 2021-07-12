@@ -55,7 +55,7 @@ export default function Main(props) {
           <Carousel.Item interval={2000}>
             <img className={classes.image_one} src={image1} alt="First slide" />
             <div class="carousel-caption d-none d-md-block">
-              <h2>Eraser</h2>
+              <h2 className="h2forslider">Eraser</h2>
               <h5>Your Campas All In Your Hands</h5>
             </div>
           </Carousel.Item>
