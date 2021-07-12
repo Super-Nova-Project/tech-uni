@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Quicksand:wght@500&display=swap');
+
 .testimonial .slick-arrow.slick-prev,
 .testimonial .slick-arrow.slick-next {
   width: 40px;
@@ -7,6 +9,7 @@
   justify-content: center;
   z-index: 1;
   border-radius: 5px;
+  font-family: 'Quicksand', sans-serif;
 }
 .slick-prev::before,
 .slick-next::before {
@@ -24,9 +27,28 @@
 .testimonial .slick-dots li {
   top: 15px;
 }
-// .testimonial{
-    
-//     background-image: url('https://data.whicdn.com/images/153810092/original.jpg');
-//     background-repeat:no-repeat;
-//     background-size:cover;
-// }
+.visionCap{
+  width: 50%;
+
+  position: relative;
+  left: 450px;
+  top: 100px;
+  font-family: 'Quicksand', sans-serif;
+
+}
+.imgvisio{
+  text-align: center;
+  width: 350px;
+  position: relative;
+  bottom: 100px;
+  left:20px;
+  
+
+}
+.card{
+  border: none!important;
+  font-family: 'Quicksand', sans-serif;
+}
+h3,h6,p{
+  font-family: 'Quicksand', sans-serif;
+}

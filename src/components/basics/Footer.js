@@ -20,8 +20,8 @@ function Footer() {
             </p>
           </div>
           <div className="col-md-4">
-            <h6>Quick Links</h6>
-            <hr />
+            
+            <hr className="hrsc"/>
             <div className="socialIcons">
               <Box>
                 <a><GitHubIcon /></a>
