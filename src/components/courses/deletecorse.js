@@ -5,13 +5,7 @@ import { useParams } from "react-router";
 import cookie from 'react-cookies';
 import { useHistory } from "react-router";
 
-const useStyles = makeStyles({
-    button: {
-        marginLeft: 100,
-        position: 'relative',
-        top: 58,
-    }
-});
+const useStyles = makeStyles({});
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
@@ -23,20 +17,20 @@ const Delete = () => {
     const { id } = useParams();
 
     const handleClick = () => {        
-    const token = cookie.load('auth-token');
-    fetch(`${API_SERVER}/course/${id}/delete`, {
-        method: 'DELETE',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-origin': API_SERVER,
-            Authorization: `Bearer ${token}`
-        },
-    }).then(async (c) => {
-        let arraya = await c.json();
-        console.log('in my delete courses----', arraya);
-        history.push('/')
-    })
+        const token = cookie.load('auth-token');
+        fetch(`${API_SERVER}/course/${id}/delete`, {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-origin': API_SERVER,
+                Authorization: `Bearer ${token}`
+            },
+        }).then(async (c) => {
+            let arraya = await c.json();
+            console.log('in my delete courses----', arraya);
+            history.push('/')
+        })
 }
 
 return (
