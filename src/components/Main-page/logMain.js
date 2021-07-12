@@ -84,9 +84,12 @@ export default function LogMain() {
                             <Typography className={classes.title} color="textSecondary" gutterBottom>
                                 name
                             </Typography>
+                            <div>
+
                             <Typography variant="h5" component="h2">
-                                {course.name}
+                                { course.name }
                             </Typography>
+                            </div>
                             <Typography className={classes.pos} color="textSecondary">
                                 description
                             </Typography>

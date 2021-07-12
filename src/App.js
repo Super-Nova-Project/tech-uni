@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/basics/Header.js';
 import Footer from './components/basics/Footer.js';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+
 import './App.css';
 import Main from './components/Main-page/Main.js';
 import AboutUs from './components/basics/about-us.js';
@@ -12,6 +13,7 @@ import SignUp from './components/auth/SignUp';
 import Create from './components/courses/create.js';
 import Join from './components/courses/join.js';
 import OneCourse from './components/courses/course';
+import OneQuiz from './components/courses/quiz/quiz-page';
 
 function App() {
   return (
@@ -35,8 +37,13 @@ function App() {
           <Route exact path="/course/:id">
             <OneCourse />
           </Route>
+
           <Route exact path="/about-us">
             <AboutUs />
+            </Route>
+          <Route exact path="/course/:id/quiz/:quizID">
+            <OneQuiz />
+
           </Route>
         </Switch>
        
