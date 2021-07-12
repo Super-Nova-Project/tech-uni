@@ -77,8 +77,6 @@ const Testimonial = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12 text-center">
-              
-             
                 <div className="card ">
                   <h3 className="main-heading">Our Vision</h3>
                       <span className = "visionCap"> Our Vision is 'together for a better future' make the learning easier and anywhere you can take your class and do the assignment that your teacher sign you to do it and everyone grows up with good culture because 'our children the future for the country'.</span>
@@ -90,8 +88,23 @@ const Testimonial = () => {
           </div>
         </div>
       </section>
-
-
+{/* 
+      <section className="section">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12 text-center">
+                <div className="card ">
+                  <h3 className="main-heading">Our Mision</h3>
+                  <img className="imgmision"
+                    src="https://image.flaticon.com/icons/png/512/3899/3899006.png"/>
+                      <span className = "MisionCap"> Our mission is to provide a free, world‑class education for anyone, anywhere.</span>
+                       
+                  
+                </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
 
       <div
         className="testimonial"
