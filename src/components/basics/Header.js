@@ -100,6 +100,15 @@ const useStyles = makeStyles((theme) => ({
     top: 50,
     zIndex: 10000,
     left:300
+  },
+  tabss: {
+    width: '39%',
+    margin: '0 auto',
+    // marginTop: '-50px',
+    position: 'absolute',
+    top: 50,
+    zIndex: 10000,
+    left:300
   }
 }));
 
@@ -239,7 +248,7 @@ export default function Header() {
         textColor="primary"
         onChange={handleChange}
         // aria-label="disabled tabs example"
-        className={classes.tabs}
+        className={classes.tabss}
       >
         <Tab label="Home"/>
         <Tab label="Create Course" />
