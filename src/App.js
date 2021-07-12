@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './components/basics/Header.js';
 import Footer from './components/basics/Footer.js';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-
+import Grade from './components/grade/exam';
 import './App.css';
 import Main from './components/Main-page/Main.js';
 import AboutUs from './components/basics/about-us.js';
@@ -43,7 +43,9 @@ function App() {
             </Route>
           <Route exact path="/course/:id/quiz/:quizID">
             <OneQuiz />
-
+          </Route>
+          <Route exact path="/course/:id/students">
+            <Grade />
           </Route>
         </Switch>
        
