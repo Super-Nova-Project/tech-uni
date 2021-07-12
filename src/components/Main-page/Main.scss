@@ -1,21 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Quicksand:wght@500&display=swap');
+
 /* _carousel.scss:226 */
 $carousel-caption-width : 100%;
 $carousel-caption-width:100%;
 $carousel-caption-color:#fff;
 
-// h2{
-//     position: absolute;
-//     right: 85%;
-//     bottom: 200px;
-//     left: -6%;
-//     z-index: 50;
-//     padding-top: 20px;
-//     padding-bottom: 20px;
-//     color: #fff;
-//     text-align: center;
-//     font-size: 8rem !important ; 
+h2{
+    position: absolute;
+    right: 85%;
+    bottom: 200px;
+    left: -6%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 8rem !important ; 
+    font-family: 'Quicksand', sans-serif;
 
-// }
+}
 h5 {
     position: absolute;
     right: 85%;
@@ -29,6 +32,7 @@ h5 {
     font-size: 2rem !important ; 
     text-overflow: ellipsis;
     white-space: nowrap; 
+    font-family: 'Quicksand', sans-serif;
 }
 
 .carousel-caption-2 h2 {
@@ -44,6 +48,7 @@ h5 {
     font-size: 3.7rem !important ; 
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-family: 'Quicksand', sans-serif;
 }
 .carousel-caption-2 h5 {
     position: absolute;
@@ -59,6 +64,7 @@ h5 {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-style: italic;
+    font-family: 'Quicksand', sans-serif;
 }
 .carousel-caption-3 h2 {
     position: absolute;
@@ -73,6 +79,7 @@ h5 {
     font-size: 3.6rem !important ; 
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-family: 'Quicksand', sans-serif;
 }
 .carousel-caption-3 h5 {
     position: absolute;
@@ -87,6 +94,7 @@ h5 {
     font-size: 1rem !important ; 
     text-overflow:clip;
     font-style: italic;
+    font-family: 'Quicksand', sans-serif;
 }
 .section{
 padding-top: 40px;
