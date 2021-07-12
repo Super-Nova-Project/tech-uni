@@ -5,10 +5,11 @@ import { useParams } from "react-router";
 import cookie from 'react-cookies';
 import Grade from '../grade/exam.js';
 import Delete from './deletecorse.js';
+import CreateRoom from './CreateRoom';
 import CreateAssignment from './assignment/create';
 import CreateQuiz from './quiz/create';
-
-
+import OpenRooms from './openRooms'
+import io from 'socket.io-client';
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
@@ -26,13 +27,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+export const socket = io.connect('http://localhost:4000');
+
 export default function CenteredGrid() {
   const classes = useStyles();
   const [current, setCurrent] = useState({});
   const [ grade, setGrade ] = useState([]);
+  const [rooms,setRooms] = useState([])
   const { id } = useParams();
 
   useEffect(() => {
+
+    socket.on('rooms' ,(data)=> {
+      setRooms(data)
+    })
+    
+    
     const token = cookie.load('auth-token');
     fetch(`${API_SERVER}/course/${id}`, {
         method: 'get',
@@ -44,11 +54,9 @@ export default function CenteredGrid() {
         },
     }).then(async (c) => {
         let data = await c.json();
-        console.log('in my courses', data);
         setCurrent(data);
         let gradeData = data.grades;
         setGrade([...gradeData]);
-        console.log('inside dsafsad', gradeData);
     })
       
   }, [])
@@ -65,9 +73,11 @@ export default function CenteredGrid() {
             {current.description}
             </Typography>
             <CreateAssignment id={id} />
+            <CreateRoom id={id} />
             <CreateQuiz id={id}/>
               <Delete /> 
               <Grade/>
+              <OpenRooms id={id} rooms={rooms}/>
           </Paper>
         </Grid>
 

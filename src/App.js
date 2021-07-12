@@ -12,6 +12,7 @@ import Create from './components/courses/create.js';
 import Join from './components/courses/join.js';
 import OneCourse from './components/courses/course';
 import OneQuiz from './components/courses/quiz/quiz-page';
+import Room from './components/courses/Room'
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           <Route exact path="/course/:id/quiz/:quizID">
             <OneQuiz />
           </Route>
+          <Route exact path="/course/:id/:roomID"  component={Room}/>
+           
         </Switch>
        
       </AuthProvider> <Footer/>
