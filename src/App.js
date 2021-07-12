@@ -38,6 +38,9 @@ function App() {
           <Route exact path="/course/:id/quiz/:quizID">
             <OneQuiz />
           </Route>
+          <Route exact path="/course/:id/assignment/:assID">
+            <OneQuiz />
+          </Route>
         </Switch>
        
       </AuthProvider> <Footer/>

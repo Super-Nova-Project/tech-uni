@@ -214,22 +214,22 @@ export default function OneQuiz() {
     });
 
     //to save the grade in the database
-    axios({
-      method: 'post',
-      url: `/course/${id}/${quizID}/submit-quiz`,
-      mode: 'cors',
-      baseURL: API_SERVER,
-      data: JSON.stringify(obj),
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-origin': API_SERVER,
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
-    console.log('finish')
+    // axios({
+    //   method: 'post',
+    //   url: `/course/${id}/${quizID}/submit-quiz`,
+    //   mode: 'cors',
+    //   baseURL: API_SERVER,
+    //   data: JSON.stringify(obj),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-origin': API_SERVER,
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    // console.log('finish')
   }
 
   const handleStart = () => {
