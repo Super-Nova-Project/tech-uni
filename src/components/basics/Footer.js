@@ -8,11 +8,11 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import FacebookIcon from "@material-ui/icons/Facebook";
 function Footer() {
   return (
-    <section className="section footer  text-white">
+    <section className="section footer text-white">
       <div className="continer">
         <div className="row">
           <div className="col-md-4">
-            <h6>Company Information</h6>
+            <h6>Eraser. For Education</h6>
             <hr />
             <p className="text-white mb-1">
               It is an online education website that will help the educational
@@ -20,8 +20,8 @@ function Footer() {
             </p>
           </div>
           <div className="col-md-4">
-            <h6>Quick Links</h6>
-            <hr />
+            
+            <hr className="hrsc"/>
             <div className="socialIcons">
               <Box>
                 <a><GitHubIcon /></a>

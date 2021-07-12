@@ -6,11 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import { Button } from '@material-ui/core';
-import { Switch, Route, Link } from "react-router-dom";
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import SignIn from '../auth/SignIn';
@@ -79,7 +76,8 @@ const useStyles = makeStyles((theme) => ({
     height: '20vh',
     display: 'flex',
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    boxShadow: '0px 0px',
   },
   icons: {
     color: appTheme.palette.secondary.main
@@ -93,7 +91,24 @@ const useStyles = makeStyles((theme) => ({
   // -ms-transform: translateY(-50%),
     transform: 'translateY(-50%)',
     right: 20
-
+  },
+  tabs: {
+    width: '31%',
+    margin: '0 auto',
+    // marginTop: '-50px',
+    position: 'absolute',
+    top: 50,
+    zIndex: 10000,
+    left:300
+  },
+  tabss: {
+    width: '39%',
+    margin: '0 auto',
+    // marginTop: '-50px',
+    position: 'absolute',
+    top: 50,
+    zIndex: 10000,
+    left:300
   }
 }));
 
@@ -213,7 +228,7 @@ export default function Header() {
             className={classes.menuButton}
             aria-label="open drawer"
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
           </IconButton>
           <Logo />
 
@@ -233,6 +248,7 @@ export default function Header() {
         textColor="primary"
         onChange={handleChange}
         // aria-label="disabled tabs example"
+        className={classes.tabss}
       >
         <Tab label="Home"/>
         <Tab label="Create Course" />
@@ -246,6 +262,7 @@ export default function Header() {
         textColor="primary"
         onChange={handleChanges}
         // aria-label="disabled tabs example"
+        className={classes.tabs}
       >
         <Tab label="Home" />
         <Tab label="SignUp" />
