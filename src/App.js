@@ -47,7 +47,8 @@ function App() {
           </Route>
         </Switch>
        
-      </AuthProvider> <Footer/>
+      </AuthProvider> 
+      <Footer/>
     </BrowserRouter>
   );
 }
