@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
     left:300
   },
   tabss: {
-    width: '39%',
+    width: 'min-content',
     margin: '0 auto',
     // marginTop: '-50px',
     position: 'absolute',

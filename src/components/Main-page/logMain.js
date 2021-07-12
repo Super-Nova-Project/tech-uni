@@ -11,6 +11,7 @@ import { setCourse } from '../../features/reducers/currentCourse';
 import { useHistory } from "react-router";
 import cookie from 'react-cookies';
 import Paper from '@material-ui/core/Paper';
+import Todo from '../listTodo/list.js';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,35 +77,40 @@ export default function LogMain() {
     }, [])
 
     return (
-        <div className={classes.cont}>
-        {courses.map(course => {
-                return (
-                    <Card className={classes.paper + ' col-md-3'}>
-                        <CardContent>
-                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                name
-                            </Typography>
-                            <div>
+        <>
+            <div>
+                <Todo />
+            </div>
+            <div className={classes.cont}>
+            {courses.map(course => {
+                    return (
+                        <Card className={classes.paper + ' col-md-3'}>
+                            <CardContent>
+                                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                    name
+                                </Typography>
+                                <div>
 
-                            <Typography variant="h5" component="h2">
-                                { course.name }
-                            </Typography>
-                            </div>
-                            <Typography className={classes.pos} color="textSecondary">
-                                description
-                            </Typography>
-                            <Typography variant="body2" component="p">
-                            {course.description}
-                            </Typography>
-                            </CardContent>
-                            <CardActions>
-                            <Button size="small" onClick={()=> handleCourse(course)} >Go To Course</Button>
-                        </CardActions>
-                    </Card>
-                )
+                                <Typography variant="h5" component="h2">
+                                    { course.name }
+                                </Typography>
+                                </div>
+                                <Typography className={classes.pos} color="textSecondary">
+                                    description
+                                </Typography>
+                                <Typography variant="body2" component="p">
+                                {course.description}
+                                </Typography>
+                                </CardContent>
+                                <CardActions>
+                                <Button size="small" onClick={()=> handleCourse(course)} >Go To Course</Button>
+                            </CardActions>
+                        </Card>
+                    )
 
-            })
-        }
-        </div>
+                })
+            }
+            </div>
+        </>
     );
 }
