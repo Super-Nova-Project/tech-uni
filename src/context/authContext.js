@@ -82,6 +82,8 @@ function AuthProvider (props) {
         console.log('11111111111', user);
         // add the token to the browser cookies
         cookie.save('auth-token', token);
+        cookie.save('userName', user2.firstName);
+        
     }
 
     function logout  ()  {
