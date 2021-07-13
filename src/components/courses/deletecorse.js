@@ -6,9 +6,7 @@ import cookie from 'react-cookies';
 import { useHistory } from "react-router";
 
 const useStyles = makeStyles({});
-
 const API_SERVER = 'https://eraser-401.herokuapp.com';
-
 const Delete = () => {
     const history = useHistory()
     const classes = useStyles();

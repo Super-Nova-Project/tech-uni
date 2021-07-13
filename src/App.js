@@ -14,7 +14,9 @@ import Create from './components/courses/create.js';
 import Join from './components/courses/join.js';
 import OneCourse from './components/courses/course';
 import OneQuiz from './components/courses/quiz/quiz-page';
+import Room from './components/courses/Room'
 import OneAssignment from './components/courses/assignment/assignment-page.js';
+
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
           <Route exact path="/course/:id/students">
             <Grade />
           </Route>
+          <Route exact path="/course/:id/:roomID"  component={Room}/>
+           
         </Switch>
 
       </AuthProvider>
