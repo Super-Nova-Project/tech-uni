@@ -39,7 +39,7 @@ return (
         className="btn btn-danger"
         onClick={()=>{handleClick(deleteItem.id)}}
         >
-        <DeleteSweepIcon />
+        <DeleteSweepIcon /> Delete The Course
         </button>
     </div>
   );

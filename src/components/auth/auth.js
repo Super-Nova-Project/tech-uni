@@ -11,7 +11,7 @@ function Auth(props) {
         return user.capabilities.includes(action);
     }
     return (
-        <Show condition={loggedIn && validateActionn(props.action)}>
+        <Show condition={props.cond}>
             {props.children}
         </Show>
     )

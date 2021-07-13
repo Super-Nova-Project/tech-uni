@@ -60,7 +60,7 @@ export default function TemporaryDrawer () {
 
   return (
     <div className={classes.modalButton}>
-    <button type="button" onClick={handleOpen}>
+    <button type="button" className="btn btn-primary" onClick={handleOpen}>
       Todo list
     </button>
     <Modal

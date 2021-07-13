@@ -70,11 +70,11 @@ const Create = () => {
   return (
     <>
       <React.Fragment>
-        <section className="section">
+        <section className="section backgroundOne">
           <div className="container">
             <div className="row">
               <div className="col-md-12 text-center">
-                <div className="card ">
+                <div className="card backgroundOne">
                   
                   <Form className="formstyle" onSubmit={handleSubmit}>
                       <h3 className="main-heading">Create Course</h3>

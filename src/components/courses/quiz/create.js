@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import useForm from '../../hooks/form';
 import cookie from 'react-cookies';
 import { TextField, FormControl  } from '@material-ui/core';
+import Auth from '../../auth/auth';
+import { AuthContext } from '../../../context/authContext';
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -26,15 +28,15 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
     paper: {
         position: 'absolute',
-        width: '90%',
-        left: '50%',
-        top: '50%',
+        width: '80%',
         height: 'auto',
-        transform: 'translate(-50%, -50%)',
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
     },
     root: {
         display: 'flex',
@@ -52,14 +54,15 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CreateQuiz({ id }) {
+export default function CreateQuiz({ id, owner }) {
     const classes = useStyles();
     const [handleSubmit, handleChange, values] = useForm(newQuiz)
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const [data, setData] = React.useState({});
     const [num, setNum] = React.useState([1, 1, 1, 1, 1]);
-    const [questionList, setQuestionList] = React.useState([])
+    const [questionList, setQuestionList] = React.useState([]);
+    const context = useContext(AuthContext)
     const handleOpen = () => {
         setOpen(true);
     };
@@ -169,7 +172,7 @@ export default function CreateQuiz({ id }) {
                             variant="filled"
                             required
                         />
-                        <Button type="submit" >Add This Question</Button>
+                        <button type="submit" className="btn btn-primary" >Add This Question</button>
                     </form>
                     <div className={classes.root}>
 
@@ -185,19 +188,21 @@ export default function CreateQuiz({ id }) {
                     </div>
                
                 <div className={classes.button}>
-                    <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
-                        Create Assignment
-                    </Button>
+                    <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+                        Create Quiz
+                    </button>
                 </div>
             {/* </form> */}
         </div>
     );
 
     return (
+        <Auth cond={context.loggedIn && context.user.email == owner}>
+
         <div>
-            <Button type="button" variant="contained" color="primary" onClick={handleOpen}>
+            <button type="button" className="btn btn-primary" onClick={handleOpen}>
                 Create Quiz
-            </Button>
+            </button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -207,5 +212,6 @@ export default function CreateQuiz({ id }) {
                 {body}
             </Modal>
         </div>
+        </Auth>
     );
 }
