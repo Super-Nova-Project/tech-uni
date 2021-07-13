@@ -94,6 +94,7 @@ export default function LogMain() {
             </div>
             {courses.map(course => {
                     return (
+                        
                         <Card className={classes.paper + ' col-md-3'}>
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>

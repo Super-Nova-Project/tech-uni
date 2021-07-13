@@ -13,7 +13,7 @@ const CreateRoom = (props) => {
     }
 
     return (
-        <button type="button" className="btn btn-primary" onClick={create}>Create room</button>
+        <button type="button" className="btn btn-primary" onClick={create} style={{marginBottom:20}}>Create room</button>
     );
 };
 

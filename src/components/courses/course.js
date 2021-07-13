@@ -18,7 +18,7 @@ import MyQuizzes from './quiz/modal';
 import { useHistory } from 'react-router-dom';
 import Auth from '../auth/auth.js';
 import { AuthContext } from '../../context/authContext.js';
-
+import './course.scss'
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -106,22 +106,25 @@ export default function CenteredGrid() {
               <Typography variant="subtitle1" gutterBottom>
                 {current.description}
               </Typography>
-
+              <div className="btncourse">
               <MyAssignment id={id} assignments={assignment} />
               <MyQuizzes id={id} quiz={quiz} />
-
+              </div>
               <Auth cond={context.loggedIn && context.user.email != current.owner}>
                 <Leave id={id} />
               </Auth>
               <Auth cond={context.loggedIn && context.user.email == current.owner}>
+                <div className="btncourse2">
                 <button type="button" className="btn btn-primary" onClick={goToStudents}>Students Grades</button>
-                <CreateAssignment id={id} owner={current.owner} />
+                <CreateAssignment id={id} owner={current.owner} style={{margin:20}} />
                 <CreateQuiz id={id} owner={current.owner} />
+                </div>
                 <CreateRoom id={id} owner={current.owner} />
                 <Delete owner={current.owner} />
-                <button type="button" className="btn btn-primary" startIcon={<DeleteIcon />} onClick={DeleteTheRooms}>Delete Rooms</button>
+                <button type="button" className="btn btn-primary" style={{marginTop:20}}startIcon={<DeleteIcon />} onClick={DeleteTheRooms}>Delete Rooms</button>
               </Auth>
               <OpenRooms id={id} rooms={rooms} />
+              
             </Paper>
 
           </Grid>

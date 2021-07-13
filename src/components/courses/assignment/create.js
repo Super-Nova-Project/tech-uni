@@ -151,7 +151,7 @@ export default function CreateAssignment({id, owner}) {
   return (
     <Auth cond={context.loggedIn && context.user.email == owner}>
     <div>
-      <button type="button" className="btn btn-primary" onClick={handleOpen}>
+      <button type="button" className="btn btn-primary" onClick={handleOpen} style={{marginLeft:20}}>
         Create Assignment
       </button>
       <Modal

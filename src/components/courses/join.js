@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 import useForm from '../hooks/form';
 import cookie from 'react-cookies';
-
+import './join.scss'
 const axios = require('axios').default;
 const api = 'https://eraser-401.herokuapp.com';
 
