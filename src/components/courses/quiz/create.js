@@ -200,7 +200,7 @@ export default function CreateQuiz({ id, owner }) {
         <Auth cond={context.loggedIn && context.user.email == owner}>
 
         <div>
-            <button type="button" className="btn btn-primary" onClick={handleOpen}>
+            <button type="button" className="btn btn-primary" onClick={handleOpen} style={{marginLeft:20}}>
                 Create Quiz
             </button>
             <Modal
