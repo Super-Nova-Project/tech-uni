@@ -103,7 +103,7 @@ export default function MyAssignment ({assignments, id}) {
           {assignments.map((row, idx) => (
             <TableRow key={idx}>
               <TableCell component="th" scope="row">
-             <Link to={`course/${id}/assignment/${row._id}`} >{row.assignmentTitle}</Link> 
+             <Link to={`${id}/assignment/${row._id}`} >{row.assignmentTitle}</Link> 
               </TableCell>
               <TableCell align="right">{row.assignmentText}</TableCell>
               <TableCell align="right">{row.due_date}</TableCell>

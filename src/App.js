@@ -6,7 +6,6 @@ import Grade from './components/grade/exam';
 import './App.css';
 import Main from './components/Main-page/Main.js';
 import AboutUs from './components/basics/about-us.js';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from './context/authContext';
 import SignUp from './components/auth/SignUp';
@@ -14,7 +13,7 @@ import Create from './components/courses/create.js';
 import Join from './components/courses/join.js';
 import OneCourse from './components/courses/course';
 import OneQuiz from './components/courses/quiz/quiz-page';
-import Room from './components/courses/Room'
+import Room from './components/courses/Room';
 import OneAssignment from './components/courses/assignment/assignment-page.js';
 
 

@@ -84,6 +84,7 @@ export default function CreateAssignment({id, owner}) {
         body: JSON.stringify(data)
     });
     let result = await response.json();
+    handleClose()
     console.log('in assign result', result);
   }
 
