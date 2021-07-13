@@ -40,7 +40,7 @@ function MyVerticallyCenteredModal(props) {
 
     useEffect(() => {
         const token = cookie.load('auth-token');
-        fetch(`${API_SERVER}/course/${id}`, {
+        fetch(`${API_SERVER}/course/${id}/grades`, {
             method: 'get',
             mode: 'cors',
             headers: {
@@ -51,9 +51,8 @@ function MyVerticallyCenteredModal(props) {
         }).then(async (c) => {
             let data = await c.json();
             console.log('in my courses', data);
-            let array = data.grades;
-            setGrade([...array]);
-            console.log('inside exam component', array);
+            setGrade([...data]);
+            console.log('inside exam component', grade);
     })
     },[])
     const handleDelete = email => {

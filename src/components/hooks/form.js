@@ -8,6 +8,7 @@ const useForm = (callback) => {
     const handleSubmit = (e) => {
         // after submitting my form
         e.preventDefault();
+        console.log('inside')
         callback(values);
     }
 

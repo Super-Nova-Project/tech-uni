@@ -100,14 +100,14 @@ export default function CenteredGrid() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <Typography variant="h2" className="courseHeading" gutterBottom>
+              <Typography variant="h2" gutterBottom>
                 {current.name}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
                 {current.description}
               </Typography>
 
-              <MyAssignment id={id} assignments={assignment} className="assignmentbtn"/>
+              <MyAssignment id={id} assignments={assignment} />
               <MyQuizzes id={id} quiz={quiz} />
 
               <Auth cond={context.loggedIn && context.user.email != current.owner}>
@@ -119,9 +119,9 @@ export default function CenteredGrid() {
                 <CreateQuiz id={id} owner={current.owner} />
                 <CreateRoom id={id} owner={current.owner} />
                 <Delete owner={current.owner} />
-                <OpenRooms id={id} rooms={rooms} />
                 <button type="button" className="btn btn-primary" startIcon={<DeleteIcon />} onClick={DeleteTheRooms}>Delete Rooms</button>
               </Auth>
+              <OpenRooms id={id} rooms={rooms} />
             </Paper>
 
           </Grid>
