@@ -34,7 +34,7 @@ const slidesData = [
     username: "Malak Almomani",
     testimonial: "Software developer",
     qoute:
-      " We only live once, Snoopy. Wrong! we only die once.We live every day! ",
+      " The purpose of our lives is to be happy. ",
   },
   {
     id: 4,
