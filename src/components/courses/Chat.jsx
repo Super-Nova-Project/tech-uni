@@ -1,34 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 import TextField from "@material-ui/core/TextField";
 import io from "socket.io-client";
 import "./Chat.css";
-
+import ScrollableFeed from "react-scrollable-feed";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 function Chat({ roomID }) {
-  const [state, setState] = useState({ message: "", name: "" });
+  const context = useContext(AuthContext);
+  console.log('sadsadsadsasdadsadsa',context);
+  const [state, setState] = useState({
+    message: "",
+    name: context.user.firstName,
+  });
+  console.log('state',state);
   const [chat, setChat] = useState([]);
-  const [color, setColor] = useState('');
-
   const socketRef = useRef();
 
   // useEffect(() => {
-  //   socketRef.current = io.connect("http://localhost:8000");
-  //   socketRef.current.emit("chatRoom",roomID );
+  //   setState({ message: "", name: });
   // }, []);
-  var r = () => (Math.random() * 256) >> 0;
-  var colors = `rgb(${r()}, ${r()}, ${r()})`;
 
-  
- 
   useEffect(() => {
-    setColor(colors)
-    // socketRef.current = io.connect("http://localhost:8000");
-    socketRef.current = io.connect('https://igotitiam.herokuapp.com');
+    socketRef.current = io.connect("https://igotitiam.herokuapp.com");
     socketRef.current.emit("chatRoom", roomID);
     socketRef.current.on("message", ({ name, message }) => {
       setChat([...chat, { name, message }]);
     });
     return () => socketRef.current.disconnect();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat]);
 
   const onTextChange = (e) => {
@@ -36,19 +35,21 @@ function Chat({ roomID }) {
   };
 
   const onMessageSubmit = (e) => {
-    const { name, message } = state;
-    console.log(message);
-    socketRef.current.emit("message", { name, message });
     e.preventDefault();
-    setState({ message: "", name });
+    const { name, message } = state;
+    if (message !== "") {
+      socketRef.current.emit("message", { name, message });
+      setState({ message: "", name });
+    }
   };
 
   const renderChat = () => {
     return chat.map(({ name, message }, index) => (
       <div key={index}>
-        <h3 style={{ backgroundColor: color }}>
-          {name}: <span className="mySpan">{message}</span>
-        </h3>
+        <h6>
+          <AccountCircleIcon /> {name}:
+          <span className="mySpan">{message}</span>
+        </h6>
       </div>
     ));
   };
@@ -56,19 +57,22 @@ function Chat({ roomID }) {
   return (
     <div className="cardd">
       <div className="render-chat">
-        <h1>LTUC Canvas </h1>
-        {renderChat()}
+        <ScrollableFeed>
+          <h1>LTUC Canvas </h1>
+          {renderChat()}
+        </ScrollableFeed>
       </div>
 
       <form className="myform" onSubmit={onMessageSubmit}>
-        <button className="roomButton" >Send Message</button>
+        <button className="roomButton">Send Message</button>
 
         <div className="rowInput">
           <div className="name-field">
             <TextField
+              hidden
               fullWidth
               name="name"
-              onChange={(e) => onTextChange(e)}
+              // onChange={(e) => onTextChange(e)}
               value={state.name}
               label="Name"
               variant="filled"
