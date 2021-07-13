@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
     top: 50,
     zIndex: 10000,
     left:'25%',
-    "@media (max-width: 770px)": {
+    "@media (max-width: 900px)": {
       top: 100,
       left: '15%'
     },
@@ -124,7 +124,7 @@ const useStyles = makeStyles((theme) => ({
     top: 50,
     zIndex: 10000,
     left:'25%',
-    "@media (max-width: 770px)": {
+    "@media (max-width: 900px)": {
       top: 100,
       left: '15%'
     },

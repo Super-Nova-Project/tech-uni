@@ -100,7 +100,7 @@ export default function MyQuizzes ({quiz, id}) {
           {quiz.map((row, idx) => (
             <TableRow key={idx}>
               <TableCell component="th" scope="row">
-             <Link to={`course/${id}/assignment/${row._id}`} >{row.quizTitle}</Link> 
+             <Link to={`${id}/quiz/${row._id}`} >{row.quizTitle}</Link> 
               </TableCell>
               <TableCell align="right">{row.timer}</TableCell>
             </TableRow>

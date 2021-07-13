@@ -20,7 +20,6 @@ function Footer() {
             </p>
           </div>
           <div className="col-md-4">
-            
             <hr className="hrsc"/>
             <div className="socialIcons">
               <Box>
@@ -53,5 +52,4 @@ function Footer() {
     </section>
   );
 }
-
 export default Footer;
