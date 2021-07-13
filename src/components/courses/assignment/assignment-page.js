@@ -10,6 +10,16 @@ import { Button, TextareaAutosize } from '@material-ui/core';
 import useForm from '../../hooks/form';
 import {useHistory} from 'react-router-dom';
 import { current } from '@reduxjs/toolkit';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,20 +59,35 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     padding: theme.spacing(2),
-  }
+  },  
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paperModal: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  table: {
+    minWidth: 650,
+  },
 }));
 
 export default function OneAssignment(props) {
   const classes = useStyles();
   const token = cookie.load('auth-token');
   const history = useHistory();
-  const [currentAssignment, setCurrentAssignment] = useState({});
+  const [currentAssignment, setCurrentAssignment] = useState({solutionInfo: []});
   const [handleSubmit, handleChange, values] = useForm(getData);
   const [loading, setLoading] = React.useState(true);
   const [start, setStart] = React.useState(false);
   const [finish, setFinish] = React.useState(false);
   const [message, setMessage] = React.useState('');
   const { id, assID } = useParams();
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     fetch(`${API_SERVER}/course/${id}`, {
@@ -87,6 +112,7 @@ export default function OneAssignment(props) {
     });
     // console.log(loading)
     console.log({currentAssignment});
+    console.log('inside the assignment page', currentAssignment);
   }, []);
 
   function getData(data) {
@@ -157,6 +183,14 @@ export default function OneAssignment(props) {
     // console.log('finish')
   }
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
 
@@ -180,6 +214,49 @@ export default function OneAssignment(props) {
           Start Assignment
         </Button>
       </Show >
+
+      <div>
+        <Button color='primary' variant='contained' type="button" onClick={handleOpen}>
+          Show Student
+        </Button>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+          timeout: 500,
+          }}
+          >
+        <Fade in={open}>
+        <div>
+            <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell> Name Student </TableCell>
+                  <TableCell align="left"> Solutions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {currentAssignment.solutionInfo.map((index) => {
+                  return (
+                  <TableRow >
+                    <TableCell align="left">{index.student}</TableCell>
+                    <TableCell align="left">{index.solution.solution}</TableCell>
+                  </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        </Fade>
+        </Modal>
+      </div>
 
       <Box className={classes.ass}>
         <Typography className={classes.text}>
