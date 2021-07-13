@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Grid, Container } from '@material-ui/core/';
+import { Paper, Typography, Grid, Container, Popper } from '@material-ui/core/';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Timer from './timer';
 import Slide from '@material-ui/core/Slide';
 import { auto } from '@popperjs/core';
-
+import Grades from './grades'
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +37,15 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1, 1, 0, 0),
   },
-  result:{
-    marginTop:'5%',
-    textAlign:'center',
-    backgroundColor:'lightgrey'
+  result: {
+    marginTop: '5%',
+    textAlign: 'center',
+    backgroundColor: 'lightgrey'
+  },
+  grades: {
+    border: '1px solid',
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
   }
 }));
 
@@ -71,6 +76,7 @@ export default function OneQuiz() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = React.useState({});
   const [elem, setElem] = useState(null)
+  const [showGrades, setShowGrades] = React.useState(false);
   // const [timeLeft, setTimeLeft] = useState(0);
   // const [timer, setTimer] = useState(0);
   // const [loading, setLoading] = React.useState(true);
@@ -78,7 +84,6 @@ export default function OneQuiz() {
   const [start, setStart] = useState(false);
   const [grade, setGrade] = useState(0);
   const { id, quizID } = useParams();
-
   useEffect(() => {
     const token = cookie.load('auth-token');
     fetch(`${API_SERVER}/course/${id}`, {
@@ -94,10 +99,10 @@ export default function OneQuiz() {
       // console.log({quizID})
       data.quizes.forEach(quiz => {
         if (quiz._id == quizID) {
-        setCurrentQuiz(quiz);
-        console.log('in data base',currentQuiz);
-        let arr = shuffleArray(quiz.quizQuestions);
-        setCurrentQuestion(arr[0])
+          setCurrentQuiz(quiz);
+          console.log('in data base', currentQuiz);
+          let arr = shuffleArray(quiz.quizQuestions);
+          setCurrentQuestion(arr[0])
         }
       });
     });
@@ -157,7 +162,7 @@ export default function OneQuiz() {
       </div>
     )
   }
-  
+
 
   let l = currentQuiz.quizQuestions ? currentQuiz.quizQuestions.length : 0;
 
@@ -180,7 +185,7 @@ export default function OneQuiz() {
 
   const handleNext = () => {
     console.log('currentQuestionIndex', currentQuestionIndex);
-    setCurrentQuestionIndex(prev => prev+1);
+    setCurrentQuestionIndex(prev => prev + 1);
     console.log('currentQuestionIndex', currentQuestionIndex);
     console.log('CurrentQuestion', currentQuestion);
     setCurrentQuestion(currentQuiz.quizQuestions[currentQuestionIndex]);
@@ -200,6 +205,13 @@ export default function OneQuiz() {
     setStart(true);
   }
 
+  const handleShow = () => {
+    setShowGrades(true);
+  }
+
+  const handleHide =() =>{
+    setShowGrades(false);
+  }
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -226,9 +238,20 @@ export default function OneQuiz() {
           <Show condition={start}>
             {elem}
           </Show>
+
         </Grid>
       </Grid>
-
+      <div>
+        <Show condition={!showGrades}>
+          <Button variant="contained" onClick={handleShow}>Show Grades</Button>
+        </Show>
+        <Show condition={showGrades}>
+          <Button variant="contained" onClick={handleHide}>Hide Grades</Button>
+        </Show>
+        <Show condition={showGrades}>
+          <Grades className={classes.grades} grades={[{ student: 'Malak', grade: 3 }, { student: 'Ishaq', grade: 4 }, { student: 'Reem', grade: 5 }]} />
+        </Show>
+      </div>
     </div>
   );
 }
