@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Grid, Container, Popper } from '@material-ui/core/';
 import { useParams } from "react-router";
@@ -10,13 +10,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Radio from '@material-ui/core/Radio'
 import Show from '../../Show'
-// import {NavigateNext , ArrowBack} from '@material-ui/icons'
+import { AuthContext } from '../../../context/authContext';
+import Auth from '../../auth/auth';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Timer from './timer';
 import Slide from '@material-ui/core/Slide';
 import { auto } from '@popperjs/core';
-import Grades from './grades'
+import Grades from './grades';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +60,9 @@ export default function OneQuiz() {
   const [finish, setFinish] = useState(false);
   const [start, setStart] = useState(false);
   const [grade, setGrade] = useState(0);
+  const [owner, setOwner] = useState('');
   const { id, quizID } = useParams();
+  const context = useContext(AuthContext)
   useEffect(() => {
     console.log('questions', questions);
     const token = cookie.load('auth-token');
@@ -74,6 +77,8 @@ export default function OneQuiz() {
     }).then(async (c) => {
       let data = await c.json();
       console.log('in quiz data', data)
+      setOwner(()=> data.owner)
+      console.log('the owner', owner);
       data.quizes.forEach(quiz => {
         if (quiz._id == quizID) {
           setCurrentQuiz(quiz);
@@ -86,10 +91,6 @@ export default function OneQuiz() {
     });
   }, []);
 
-  
-
-  // let l = currentQuiz.quizQuestions ? currentQuiz.quizQuestions.length : 0;
-
   const handleRadioChange = (event) => {
     let answer = event.target.value;
     if (questions[currentQuestion].correct_answer === answer) {
@@ -99,13 +100,6 @@ export default function OneQuiz() {
     setAnswers(prev => [...prev, answer]);
 
   };
-
-  // const handleBack = () => {
-  //   console.log('-1');
-  //   setCurrentQuestionIndex((prevActiveStep) => prevActiveStep - 1);
-  //   setCurrentQuestion(currentQuiz.quizQuestions[currentQuestionIndex]);
-
-  // };
 
   const handleNext = () => {
     console.log('CurrentQuestion', currentQuestion);
@@ -148,7 +142,7 @@ export default function OneQuiz() {
   const handleHide =() =>{
     setShowGrades(false);
   }
-  return (
+  return (<>
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -156,7 +150,8 @@ export default function OneQuiz() {
             <Typography variant="h2" gutterBottom>
               {currentQuiz.quizTitle}
             </Typography>
-            <Show condition={!start}>
+            
+            <Show condition={!start && context.user.email != owner}>
               <Button onClick={handleStart}
                 className={classes.button}
                 variant="contained"
@@ -171,6 +166,8 @@ export default function OneQuiz() {
               </Typography>
             </Show>
           </Paper>
+          <Auth cond={context.user.email != owner}>
+
           <Show condition={start}>
           <div>
         <Show condition={!finish}>
@@ -219,10 +216,12 @@ export default function OneQuiz() {
         </Show>
       </div>
           </Show>
+            </Auth>
 
         </Grid>
       </Grid>
-      <div>
+    </div>
+      <Auth cond={context.user.email == owner}>
         <Show condition={!showGrades}>
           <Button variant="contained" onClick={handleShow}>Show Grades</Button>
         </Show>
@@ -230,9 +229,9 @@ export default function OneQuiz() {
           <Button variant="contained" onClick={handleHide}>Hide Grades</Button>
         </Show>
         <Show condition={showGrades}>
-          <Grades className={classes.grades} grades={[{ student: 'Malak', grade: 3 }, { student: 'Ishaq', grade: 4 }, { student: 'Reem', grade: 5 }]} />
+          <Grades className={classes.grades} grades={currentQuiz.solutionInfo} />
         </Show>
-      </div>
-    </div>
+      </Auth>
+    </>
   );
 }

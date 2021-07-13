@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../context/authContext';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
@@ -79,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 export default function OneAssignment(props) {
   const classes = useStyles();
   const token = cookie.load('auth-token');
+  const context = useContext(AuthContext)
   const history = useHistory();
   const [currentAssignment, setCurrentAssignment] = useState({solutionInfo: []});
   const [handleSubmit, handleChange, values] = useForm(getData);
@@ -86,6 +88,7 @@ export default function OneAssignment(props) {
   const [start, setStart] = React.useState(false);
   const [finish, setFinish] = React.useState(false);
   const [message, setMessage] = React.useState('');
+  const [owner, setOwner] = useState('');
   const { id, assID } = useParams();
   const [open, setOpen] = React.useState(false);
 
@@ -100,10 +103,10 @@ export default function OneAssignment(props) {
       },
     }).then(async (c) => {
       let data = await c.json();
-      // console.log({quizID})
+      setOwner(()=> data.owner)
       data.assignments.forEach(assignment => {
+
         if (assignment._id === assID) {
-          // assignment.due_date = assignment.due_date.toDateString();
           setCurrentAssignment(assignment);
           setLoading(false);
         }
@@ -146,42 +149,13 @@ export default function OneAssignment(props) {
       .catch(function (error) {
         console.log(error);
       });
-
-    // submitAssignment(solution);
   }
-  // function renderFilePreview() {
 
-  //   return (
-  //     <div>
-
-  //     </div>
-  //   )
-  // }
 
   const handleStart = () => {
     setStart(true)
   }
 
-  const submitAssignment = (solution) => {
-   
-    //to save the grade in the database
-    // axios({
-    //   method: 'post',
-    //   url: `/course/${id}/${quizID}/submit-quiz`,
-    //   mode: 'cors',
-    //   baseURL: API_SERVER,
-    //   data: JSON.stringify(obj),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Access-Control-Allow-origin': API_SERVER,
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    // console.log('finish')
-  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -198,14 +172,14 @@ export default function OneAssignment(props) {
         <Show condition={loading}>
           <CircularProgress />
         </Show>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h2" gutterBottom>
           {currentAssignment.assignmentTitle}
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
           <strong>Due Date : </strong>{currentAssignment.due_date}
         </Typography>
       </Box>
-      <Show condition={!start}>
+      <Show condition={!start && context.user.email != owner}>
         <Button color="primary"
           variant="contained"
           className={classes.start}
@@ -216,9 +190,12 @@ export default function OneAssignment(props) {
       </Show >
 
       <div>
+        <Show condition={context.user.email == owner}>
+
         <Button color='primary' variant='contained' type="button" onClick={handleOpen}>
           Show Student
         </Button>
+        </Show>
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
