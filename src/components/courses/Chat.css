@@ -1,4 +1,4 @@
-.card {
+.cardd {
   display: flex;
   margin: 30px;
   min-height: 30rem;
@@ -33,7 +33,7 @@
 
 }
 
-span {
+.mySpan {
   color: black;
 }
 /* h3{

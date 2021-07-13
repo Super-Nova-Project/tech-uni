@@ -14,7 +14,6 @@ import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import FacebookIcon from "@material-ui/icons/Facebook";
-
 const slidesData = [
   {
     id: 1,
@@ -52,7 +51,6 @@ const slidesData = [
       "Loyalty is a two-way street.If Im asking for it from you then youre getting it from me.",
   },
 ];
-
 const PreviousBtn = (props) => {
   console.log(props);
   const { className, onClick } = props;
@@ -80,7 +78,6 @@ const Testimonial = () => {
                 <div className="card ">
                   <h3 className="main-heading">Our Vision</h3>
                       <span className = "visionCap"> Our Vision is 'together for a better future' make the learning easier and anywhere you can take your class and do the assignment that your teacher sign you to do it and everyone grows up with good culture because 'our children the future for the country'.</span>
-                       
                   <img className="imgvisio"
                     src="https://www.vippng.com/png/detail/195-1952958_device-allows-3-brains-to-connect-share-thoughts.png"/>
                 </div>
@@ -98,14 +95,11 @@ const Testimonial = () => {
                   <img className="imgmision"
                     src="https://image.flaticon.com/icons/png/512/3899/3899006.png"/>
                       <span className = "MisionCap"> Our mission is to provide a free, world‑class education for anyone, anywhere.</span>
-                       
-                  
                 </div>
             </div>
           </div>
         </div>
       </section> */}
-
       <div
         className="testimonial backgroundOne"
         style={{
@@ -239,7 +233,6 @@ const Testimonial = () => {
     </React.Fragment>
   );
 };
-
 const Card = ({ img }) => {
   return (
     <div
@@ -265,5 +258,4 @@ const Card = ({ img }) => {
     </div>
   );
 };
-
 export default Testimonial;

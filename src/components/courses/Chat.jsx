@@ -47,14 +47,14 @@ function Chat({ roomID }) {
     return chat.map(({ name, message }, index) => (
       <div key={index}>
         <h3 style={{ backgroundColor: color }}>
-          {name}: <span>{message}</span>
+          {name}: <span className="mySpan">{message}</span>
         </h3>
       </div>
     ));
   };
 
   return (
-    <div className="card">
+    <div className="cardd">
       <div className="render-chat">
         <h1>LTUC Canvas </h1>
         {renderChat()}
