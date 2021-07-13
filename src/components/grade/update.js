@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
   inp: {
       margin: 5
+  },
+  upBtn: {
+    float: 'right'
   }
 }));
 
@@ -42,10 +45,10 @@ export default function SpringModal() {
   };
 
   return (
-    <div>
-      <Button color='primary' variant="contained" type="button" onClick={handleOpen}>
+    <div className={classes.upBtn} >
+      <button className="btn btn-primary " type="button" onClick={handleOpen}>
         Update Grades
-      </Button>
+      </button>
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -69,7 +72,7 @@ export default function SpringModal() {
                 <TextField className={classes.inp} onChange={handleChange} label="quizThree" name="quizThree" variant="filled" />
                 <TextField className={classes.inp} onChange={handleChange} label="finalExam" name="finalExam" variant="filled" />
                 <TextField className={classes.inp} onChange={handleChange} label="overAll" name="overAll" variant="filled" />
-                <Button type="submit" color='primary' variant="contained">Update</Button>
+                <button type="submit" className="btn btn-primary">Update</button>
             </form>
           </div>
 

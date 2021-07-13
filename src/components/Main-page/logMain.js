@@ -30,10 +30,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 12,
     },
     cont: {
+        position: 'relative',
         width: '100%',
         display: 'flex',
         flexWrap: 'wrap',
-        flexDirection: ''
+        backgroundColor: '#fafafa',
     },
     paper: {
         display: 'flex',
@@ -45,6 +46,14 @@ const useStyles = makeStyles((theme) => ({
         },
         margin: theme.spacing(2),
       },
+      todo: {
+        position: 'relative',
+        top: -15,
+        left: '94%',
+        "@media (max-width: 770px)": {
+            left: '2%'
+          },
+      }
 }));
 
 export default function LogMain() {
@@ -78,10 +87,11 @@ export default function LogMain() {
 
     return (
         <>
-            <div>
+            
+            <div className={classes.cont}>
+            <div className={classes.todo}>
                 <Todo />
             </div>
-            <div className={classes.cont}>
             {courses.map(course => {
                     return (
                         <Card className={classes.paper + ' col-md-3'}>

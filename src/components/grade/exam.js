@@ -8,11 +8,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import Paper from '@material-ui/core/Paper';
-import { Modal, Button } from 'react-bootstrap';
+// import { Modal, Button } from 'react-bootstrap';
+import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
-import UpdateComp from './update'
+import UpdateComp from './update';
 import { useHistory } from 'react-router';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -24,7 +26,8 @@ const useStyles = makeStyles({
     button: {
         marginTop: 20,
         marginRight: 70,
-    }
+    },
+    
 });
 
 function MyVerticallyCenteredModal(props) {
@@ -76,7 +79,8 @@ function MyVerticallyCenteredModal(props) {
       <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <h3> Grade </h3>
-        <UpdateComp/>
+              <Button onClick={()=> history.push(`/course/${id}`)} ><ArrowBackIosIcon/>Back</Button>
+        <UpdateComp  />
       </TableHead>
       <TableBody>
           <TableRow>

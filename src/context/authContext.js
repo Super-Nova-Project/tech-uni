@@ -3,6 +3,7 @@ import cookie from 'react-cookies';
 import base64 from 'base-64';
 import jwt from 'jsonwebtoken';
 import {useHistory} from 'react-router-dom';
+import superagent from 'superagent';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 export const AuthContext = React.createContext();
 
@@ -25,11 +26,17 @@ function AuthProvider (props) {
         const encoded = base64.encode(`${username}:${password}`);
         const result = await fetch(`${API_SERVER}/signin`, {
             method: 'post',
-            headers: {Authorization: `Basic ${encoded}`}
+            headers: {Authorization: `Basic ${encoded}`,
+            "Content-Type": "application/json",
+            "Access-Control-Allow-origin": '*',
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Range"
+            },
+            mode: 'cors',
         });
+        // const result = await superagent.post(`${API_SERVER}/signin`).set('Authorization', `Basic ${encoded}`).set('Accept', 'application/json')
 
         let data = await result.json();
-        console.log('in login fun',data);
+        console.log('in login fun',result);
         validateToken(data.token);
         // verify ==> with the secret
         // decode ==> does not need the secret

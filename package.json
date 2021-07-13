@@ -37,6 +37,7 @@
     "sass": "^1.35.2",
     "scss": "^0.2.4",
     "slick-carousel": "^1.8.1",
+    "superagent": "^6.1.0",
     "swiper": "^6.7.5"
   },
   "scripts": {

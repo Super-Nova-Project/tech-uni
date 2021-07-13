@@ -73,7 +73,7 @@ const NextBtn = (props) => {
 const Testimonial = () => {
   return (
     <React.Fragment>
-      <section className="section">
+      <section className="section backgroundOne">
         <div className="container">
           <div className="row">
             <div className="col-md-12 text-center">
@@ -107,7 +107,7 @@ const Testimonial = () => {
       </section> */}
 
       <div
-        className="testimonial"
+        className="testimonial backgroundOne"
         style={{
           display: "flex",
           justifyContent: "center",
