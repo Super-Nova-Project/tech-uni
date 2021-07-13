@@ -4,15 +4,17 @@ import TextField from "@material-ui/core/TextField";
 import io from "socket.io-client";
 import "./Chat.css";
 import ScrollableFeed from "react-scrollable-feed";
+import cookies from "react-cookies";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 function Chat({ roomID }) {
-  const context = useContext(AuthContext);
-  console.log('sadsadsadsasdadsadsa',context);
+  // const context = useContext(AuthContext);
+  const firstName = cookies.load("userName");
+
   const [state, setState] = useState({
     message: "",
-    name: context.user.firstName,
+    name: firstName,
   });
-  console.log('state',state);
+  console.log("state", state);
   const [chat, setChat] = useState([]);
   const socketRef = useRef();
 
@@ -47,8 +49,7 @@ function Chat({ roomID }) {
     return chat.map(({ name, message }, index) => (
       <div key={index}>
         <h6>
-          <AccountCircleIcon /> {name}:
-          <span className="mySpan">{message}</span>
+          <AccountCircleIcon /> {name}:<span className="mySpan">{message}</span>
         </h6>
       </div>
     ));
