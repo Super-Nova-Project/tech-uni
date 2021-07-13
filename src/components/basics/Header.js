@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 50,
     zIndex: 10000,
-    left:'35%',
+    left:'25%',
     "@media (max-width: 770px)": {
       top: 100,
       left: '15%'
@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 50,
     zIndex: 10000,
-    left:'35%',
+    left:'25%',
     "@media (max-width: 770px)": {
       top: 100,
       left: '15%'
