@@ -44,7 +44,7 @@ export default function Grades(props) {
             </ListItemAvatar>
             <ListItemText id={labelId} primary={value.student} />
             <ListItemSecondaryAction>
-              <strong>{value.grade} out of 5</strong>
+              <strong>{value.solution.grade}</strong>
             </ListItemSecondaryAction>
           </ListItem>
         );
