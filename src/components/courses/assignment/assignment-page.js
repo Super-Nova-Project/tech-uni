@@ -5,9 +5,11 @@ import cookie from 'react-cookies';
 import Show from '../../Show';
 import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Box, Paper, Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { BorderAllRounded } from '@material-ui/icons';
+import { Box, Typography, useForkRef } from '@material-ui/core';
+import { Button, TextareaAutosize } from '@material-ui/core';
+import useForm from '../../hooks/form';
+import {useHistory} from 'react-router-dom';
+import { current } from '@reduxjs/toolkit';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,19 +41,30 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 8px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;',
     textAlign: 'center',
     backgroundColor: 'white',
+  },
+  solution: {
+    alignContent: 'center',
+    padding: theme.spacing(2),
+    width: '45%'
+  },
+  submit: {
+    padding: theme.spacing(2),
   }
 }));
 
-export default function OneAssignment() {
+export default function OneAssignment(props) {
   const classes = useStyles();
   const token = cookie.load('auth-token');
+  const history = useHistory();
   const [currentAssignment, setCurrentAssignment] = useState({});
-  const [solution, setSolution] = React.useState({});
+  const [handleSubmit, handleChange, values] = useForm(getData);
   const [loading, setLoading] = React.useState(true);
+  const [start, setStart] = React.useState(false);
+  const [finish, setFinish] = React.useState(false);
+  const [message, setMessage] = React.useState('');
   const { id, assID } = useParams();
 
   useEffect(() => {
-    console.log(loading)
     fetch(`${API_SERVER}/course/${id}`, {
       method: 'get',
       mode: 'cors',
@@ -67,28 +80,24 @@ export default function OneAssignment() {
         if (assignment._id === assID) {
           // assignment.due_date = assignment.due_date.toDateString();
           setCurrentAssignment(assignment);
+          setLoading(false);
         }
-        setLoading(false)
+
       });
     });
-    console.log(loading)
-
+    // console.log(loading)
+    console.log({currentAssignment});
   }, []);
 
-  function renderFilePreview() {
+  function getData(data) {
+    setLoading(true);
+    console.log(data.solution);
 
-    return (
-      <div>
-
-      </div>
-    )
-  }
-
-
-  const handleSubmitAssignment = () => {
     const token = cookie.load('auth-token');
+    console.log(data.solution)
     const obj = {
-      solution: solution
+      email:props.email,
+      solution: data.solution
     }
     //TO save the solution in the database
     axios({
@@ -102,11 +111,33 @@ export default function OneAssignment() {
         'Access-Control-Allow-origin': API_SERVER,
         Authorization: `Bearer ${token}`
       }
+    }).then(res => {
+      // console.log(res);
+      setLoading(false);
+      setFinish(true);
+      // history.push(`course/${id}`);
     })
       .catch(function (error) {
         console.log(error);
       });
 
+    // submitAssignment(solution);
+  }
+  // function renderFilePreview() {
+
+  //   return (
+  //     <div>
+
+  //     </div>
+  //   )
+  // }
+
+  const handleStart = () => {
+    setStart(true)
+  }
+
+  const submitAssignment = (solution) => {
+   
     //to save the grade in the database
     // axios({
     //   method: 'post',
@@ -128,7 +159,11 @@ export default function OneAssignment() {
 
   return (
     <div>
+
       <Box className={classes.title}>
+        <Show condition={loading}>
+          <CircularProgress />
+        </Show>
         <Typography variant="h3" gutterBottom>
           {currentAssignment.assignmentTitle}
         </Typography>
@@ -136,15 +171,48 @@ export default function OneAssignment() {
           <strong>Due Date : </strong>{currentAssignment.due_date}
         </Typography>
       </Box>
-      <Button color="primary" variant="contained" className={classes.start}>Start Assignment</Button>
+      <Show condition={!start}>
+        <Button color="primary"
+          variant="contained"
+          className={classes.start}
+          onClick={handleStart}
+        >
+          Start Assignment
+        </Button>
+      </Show >
 
       <Box className={classes.ass}>
         <Typography className={classes.text}>
-          {console.log(currentAssignment)}
           {currentAssignment.assignmentText}
         </Typography>
       </Box>
-      
-    </div>
+
+      <Show condition={start && !finish}>
+        <Box>
+          <form onSubmit={handleSubmit} className={classes.ass}>
+            <TextareaAutosize className={classes.solution}
+              onChange={handleChange}
+              maxRows={50}
+              placeholder="Submit your Solution Text Or link for external file"
+              name="solution"
+            />
+            <Button variant="contained" className={classes.submit} type="submit">Submit Assignment</Button>
+          </form>
+
+        </Box>
+
+      </Show>
+      <Box className={classes.title}>
+        <Show condition={loading}>
+          <CircularProgress />
+        </Show>
+        <Show condition={finish}>
+          <Typography variant="h3" gutterBottom>
+            You Submitted Successfully
+          </Typography>
+        </Show>
+      </Box>
+
+    </div >
   );
 }
