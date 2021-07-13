@@ -2,8 +2,10 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import { Button,TextField } from '@material-ui/core';
+import { Button,TextField, Typography } from '@material-ui/core';
 import useForm from '../hooks/form';
+import { useParams } from "react-router";
+import cookie from 'react-cookies';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,14 +30,34 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 export default function SpringModal() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [handleSubmit, handleChange, values]= useForm(handleUpdate)
-  function handleUpdate  (data) {
-    console.log('in updaaaaaaaaaaaaaate', data)
+  const [ grade, setGrade ] = React.useState([]);
+  const { id } = useParams();
+
+  function handleUpdate (email) {
+    const token = cookie.load('auth-token');
+    console.log('in update+------', email);
+    fetch(`${API_SERVER}/course/${id}/grades`,{
+      method: 'post',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(email),
+    }).then(async (c)=>{
+      let data = await c.json();
+      console.log('in updaaaaaaaaaaaaaate', data);
+      handleClose();
+    })
   }
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -45,6 +67,7 @@ export default function SpringModal() {
   };
 
   return (
+    <>
     <div className={classes.upBtn} >
       <button className="btn btn-primary " type="button" onClick={handleOpen}>
         Update Grades
@@ -78,5 +101,6 @@ export default function SpringModal() {
 
       </Modal>
     </div>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import cookie from 'react-cookies';
 import base64 from 'base-64';
 import jwt from 'jsonwebtoken';
 import {useHistory} from 'react-router-dom';
-import superagent from 'superagent';
+//import superagent from 'superagent';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 export const AuthContext = React.createContext();
 
