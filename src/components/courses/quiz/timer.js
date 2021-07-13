@@ -1,10 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import {useHistory} from 'react-router-dom';
 
 const Timer = (props) => {
     const {initialMinute = 0,initialSeconds = 0} = props;
     const [ minutes, setMinutes ] = useState(initialMinute);
     const [seconds, setSeconds ] =  useState(initialSeconds);
+    const history = useHistory();
+    
     useEffect(()=>{
     let myInterval = setInterval(() => {
             if (seconds > 0) {
@@ -13,6 +16,8 @@ const Timer = (props) => {
             if (seconds === 0) {
                 if (minutes === 0) {
                     clearInterval(myInterval)
+                    alert("Time's up!");
+                    history.push('/');
                 } else {
                     setMinutes(minutes - 1);
                     setSeconds(59);
