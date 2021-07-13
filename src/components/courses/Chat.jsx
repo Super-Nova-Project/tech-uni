@@ -60,7 +60,7 @@ function Chat({ roomID }) {
         {renderChat()}
       </div>
 
-      <form onSubmit={onMessageSubmit}>
+      <form className="myform" onSubmit={onMessageSubmit}>
         <button className="roomButton" >Send Message</button>
 
         <div className="rowInput">

@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import useForm from '../../hooks/form';
 import cookie from 'react-cookies';
 import {TextField} from '@material-ui/core';
+import Auth from '../../auth/auth';
+import { useContext } from 'react';
+import { AuthContext } from '../../../context/authContext';
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -52,12 +55,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function CreateAssignment({id}) {
+export default function CreateAssignment({id, owner}) {
   const classes = useStyles();
   const [handleSubmit, handleChange, values] = useForm(newAssignment)
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
   const [data , setData] = React.useState({});
+  const context = useContext(AuthContext)
   const handleOpen = () => {
     setOpen(true);
   };
@@ -135,19 +139,20 @@ export default function CreateAssignment({id}) {
         </div>
         <br/>
       <div className={classes.button}>
-      <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
+      <button type="button" className="btn btn-primary" onClick={handleSubmit}>
         Create Assignment
-      </Button>
+      </button>
       </div>
       </form>
     </div>
   );
 
   return (
+    <Auth cond={context.loggedIn && context.user.email == owner}>
     <div>
-      <Button type="button" variant="contained" color="primary" onClick={handleOpen}>
+      <button type="button" className="btn btn-primary" onClick={handleOpen}>
         Create Assignment
-      </Button>
+      </button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -157,5 +162,6 @@ export default function CreateAssignment({id}) {
         {body}
       </Modal>
     </div>
+    </Auth>
   );
 }

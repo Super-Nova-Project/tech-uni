@@ -17,8 +17,20 @@ $carousel-caption-color:#fff;
 //     text-align: center;
 //     font-size: 8rem !important ; 
 //     font-family: 'Quicksand', sans-serif;
+.h2forslider{
+    position: absolute;
+    right: 85%;
+    bottom: 200px;
+    left: -6%;
+    z-index: 50;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    font-size: 8rem !important ; 
+    font-family: 'Quicksand', sans-serif;
 
-// }
+}
 h5 {
     position: absolute;
     right: 85%;
@@ -114,4 +126,8 @@ padding-bottom: 40px;
 p{
 font-size: 14px;
 color: #262626;
+}
+
+.backgroundOne{
+    background-color: #fafafa;
 }

@@ -13,7 +13,7 @@ const CreateRoom = (props) => {
     }
 
     return (
-        <Button type="button" variant="contained" color="primary" onClick={create}>Create room</Button>
+        <button type="button" className="btn btn-primary" onClick={create}>Create room</button>
     );
 };
 

@@ -88,27 +88,50 @@ const useStyles = makeStyles((theme) => ({
   auth: {
     position: 'absolute',
     top: '50%',
-  // -ms-transform: translateY(-50%),
     transform: 'translateY(-50%)',
-    right: 20
+    right: 5,
+    "@media (min-width: 1280px)": {
+      // marginTop: theme.spacing(5),
+      // backgroundColor: "red"
+      right: 5
+    },
+    [theme.breakpoints.down("sm", "md")]: {
+      right: 5
+    }
   },
   tabs: {
-    width: '31%',
+    width: 'min-content',
     margin: '0 auto',
     // marginTop: '-50px',
     position: 'absolute',
     top: 50,
     zIndex: 10000,
-    left:300
+    left:'35%',
+    "@media (max-width: 770px)": {
+      top: 100,
+      left: '15%'
+    },
+    "@media (max-width: 500px)": {
+      top: 100,
+      left: '15%'
+    },
   },
   tabss: {
-    width: '39%',
+    width: 'min-content',
     margin: '0 auto',
     // marginTop: '-50px',
     position: 'absolute',
     top: 50,
     zIndex: 10000,
-    left:300
+    left:'35%',
+    "@media (max-width: 770px)": {
+      top: 100,
+      left: '15%'
+    },
+    "@media (max-width: 500px)": {
+      top: 100,
+      left: '15%'
+    },
   }
 }));
 
@@ -223,13 +246,6 @@ export default function Header() {
     <div className={classes.grow}>
       <AppBar position="static" className={classes.header} >
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            aria-label="open drawer"
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
           <Logo />
 
         </Toolbar>

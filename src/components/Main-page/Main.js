@@ -55,7 +55,7 @@ export default function Main(props) {
           <Carousel.Item interval={2000}>
             <img className={classes.image_one} src={image1} alt="First slide" />
             <div class="carousel-caption d-none d-md-block">
-              <h2>Eraser</h2>
+              <h2 className="h2forslider">Eraser</h2>
               <h5>Your Campas All In Your Hands</h5>
             </div>
           </Carousel.Item>
@@ -91,10 +91,10 @@ export default function Main(props) {
         <div className="container">
           <div className="row">
             <div className="col-md-12 text-center">
-              <h3 className="main-heading">Our Company</h3>
+              <h3 className="main-heading">Eraser For Education</h3>
               <div className="underline mx-auto"></div>
               <p className={classes.text}>
-                Our slogan is 'together for a better future' as we all know when
+                'Together for a better future' as we all know when
                 COVID appear and most of the country destroyed its economy
                 because of this disease, the government order to close all the
                 markets and no one goes outside to the street. so most of the
@@ -120,26 +120,25 @@ export default function Main(props) {
         <div className="container">
           <div className="row">
             <div className="col-md-12 mb-4 text-center">
-              <h3 className="main-heading"> Vision, Mision and Values</h3>
+              <h3 className="main-heading"> Our core values</h3>
               <div className="underline mx-auto"></div>
             </div>
             <div className="col-md-4 text-center">
-              <h6>Our Vision</h6>
+              <h6>Live and breathe learners</h6>
               <p>
-                'Together for a better future' 
+              We deeply understand and empathize with our users. We leverage user insights, research, and experience to build content, products, services, and experiences that our users trust and love.
               </p>
             </div>
             <div className="col-md-4 text-center">
-              <h6>Our Mission</h6>
+              <h6>Cultivate learning mindset</h6>
               <p>
-              Our mission is to provide a free, world‑class education for anyone, anywhere.
+              We believe in the power of growth for learners and for ourselves. We constantly learn and teach to improve our offerings, ourselves, and our organization. 
               </p>
             </div>
             <div className="col-md-4 text-center">
-              <h6>Our Coure Values</h6>
+              <h6>Bring out the joy</h6>
               <p>
-                is 'together for a better future' as we all know when COVID
-                appear and most
+              We are committed to making learning a joyful process. This informs what we build for our users and the culture we co-create with our teammates and partners.
               </p>
             </div>
           </div>

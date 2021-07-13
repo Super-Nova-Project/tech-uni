@@ -63,13 +63,27 @@ const Join = ()=>{
 
     return (
         <>
-            <Form onSubmit={handleSubmit}>
-                <Typography className={classes.text} > Join Your Course </Typography>
-                    <br/>
-                <TextField name='id' type='text' className={classes.name} label='id' onChange={handleChange} />
-                    <br/>
-                <Button type='submit' className={classes.button} variant='contained' color='primary' > submit </Button>
-            </Form>
+
+            <React.Fragment>
+        <section className="section backgroundOne">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 text-center">
+                <div className="card backgroundOne">
+                  
+                  <Form className="formstyle" onSubmit={handleSubmit}>
+                      <h3 className="main-heading">Join Your Course</h3>
+                    <br />
+                    <TextField name='id' type='text' className="form-input_input" label='Enter Course ID' onChange={handleChange} />
+                    <br />
+                    <Button type='submit' className="form-button" variant='contained'  > submit </Button>
+                  </Form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </React.Fragment>
         </>
     )
 }

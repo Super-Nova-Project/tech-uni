@@ -24,6 +24,7 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Container from '@material-ui/core/Container';
+import Auth from './auth'
 
 function Copyright() {
     return (
@@ -83,162 +84,164 @@ export default function SignUp() {
     const [open, setOpen] = React.useState(false);
     const [handleSubmit, handleChange, values] = useForm(getData);
     const context = useContext(AuthContext)
-    function getStepContent(stepIndex) {
-        switch (stepIndex) {
-            case 0:
-                return (
-                    <div className={classes.cont}>
-                        <div>
+    // function getStepContent(stepIndex) {
+    //     switch (stepIndex) {
+    //         case 0:
+    //             return (
+    //                 <div className={classes.cont}>
+    //                     <div>
 
-                        <InputLabel id="labelF">First Name</InputLabel>
-                        <TextField labelId="labelF" id="outlined-basic" label="First Name" name="firstname" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
-                        </div>
-                        <div>
+    //                     <InputLabel id="labelF">First Name</InputLabel>
+    //                     <TextField labelId="labelF" id="outlined-basic" label="First Name" name="firstname" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
+    //                     </div>
+    //                     <div>
 
-                        <InputLabel id="labelL">Last Name</InputLabel>
-                        <TextField labelId="labelL" id="outlined-basic" label="Last Name" name="lastname" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
-                        </div>
-                        <div>
+    //                     <InputLabel id="labelL">Last Name</InputLabel>
+    //                     <TextField labelId="labelL" id="outlined-basic" label="Last Name" name="lastname" variant="outlined" type="text" item className={classes.name} onChange={handleChange} />
+    //                     </div>
+    //                     <div>
 
-                        <InputLabel id="labelE">Email</InputLabel>
-                        <TextField labelId="labelE" id="outlined-basic" label="Email" variant="outlined" name="email" type="email" onChange={handleChange} className={classes.name}/>
-                        </div>
+    //                     <InputLabel id="labelE">Email</InputLabel>
+    //                     <TextField labelId="labelE" id="outlined-basic" label="Email" variant="outlined" name="email" type="email" onChange={handleChange} className={classes.name}/>
+    //                     </div>
 
 
-                    </div>
-                );
-            case 1:
-                return (
-                    <div className={classes.cont}>
-                        <div>
+    //                 </div>
+    //             );
+    //         case 1:
+    //             return (
+    //                 <div className={classes.cont}>
+    //                     <div>
 
-                        <InputLabel id="label">Gender</InputLabel>
-                        <Select name="gender" labelId="label" id="select" onChange={handleChange} defaultValue="male">
-                            <MenuItem key="male" value="male">Male</MenuItem>
-                            <MenuItem key="female" value="female">Female</MenuItem>
-                        </Select>
-                        </div>
-                    <div>
-                    <InputLabel id="labelB">Birthday</InputLabel>
-                        <TextField
-                        labelId="labelB"
-                            name="birthdate"
-                            onChange={handleChange}
-                            id="date"
-                            label="Birthday"
-                            type="date"
-                            defaultValue="2017-05-24"
-                            className={classes.textField}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
-                    </div>
+    //                     <InputLabel id="label">Gender</InputLabel>
+    //                     <Select name="gender" labelId="label" id="select" onChange={handleChange} defaultValue="male">
+    //                         <MenuItem key="male" value="male">Male</MenuItem>
+    //                         <MenuItem key="female" value="female">Female</MenuItem>
+    //                     </Select>
+    //                     </div>
+    //                 <div>
+    //                 <InputLabel id="labelB">Birthday</InputLabel>
+    //                     <TextField
+    //                     labelId="labelB"
+    //                         name="birthdate"
+    //                         onChange={handleChange}
+    //                         id="date"
+    //                         label="Birthday"
+    //                         type="date"
+    //                         defaultValue="2017-05-24"
+    //                         className={classes.textField}
+    //                         InputLabelProps={{
+    //                             shrink: true,
+    //                         }}
+    //                     />
+    //                 </div>
 
-                    </div>
-                );
-            case 2:
-                return (<div className={classes.cont}>
-                    <div>
-                    <InputLabel id="labelP">Your Password</InputLabel>
-                    <TextField labelId="labelP" id="outlined-basic" label="Password" variant="outlined" name="pass" type="password" onChange={handleChange} />
-                    </div>
-                    <div>
-                    <InputLabel id="labelPP">Rewrite Your Password</InputLabel>
-                    <TextField labelId="labelPP" id="outlined-basic" label="Repeat Password" variant="outlined" name="repeat" type="password" onChange={handleChange} />
-                    </div>
-                </div>);
-            default:
-                return 'Unknown stepIndex';
-        }
-    }
+    //                 </div>
+    //             );
+    //         case 2:
+    //             return (<div className={classes.cont}>
+    //                 <div>
+    //                 <InputLabel id="labelP">Your Password</InputLabel>
+    //                 <TextField labelId="labelP" id="outlined-basic" label="Password" variant="outlined" name="pass" type="password" onChange={handleChange} />
+    //                 </div>
+    //                 <div>
+    //                 <InputLabel id="labelPP">Rewrite Your Password</InputLabel>
+    //                 <TextField labelId="labelPP" id="outlined-basic" label="Repeat Password" variant="outlined" name="repeat" type="password" onChange={handleChange} />
+    //                 </div>
+    //             </div>);
+    //         default:
+    //             return 'Unknown stepIndex';
+    //     }
+    // }
 
-    const state = useSelector(state => {
-        return {
-            SignUp: state.SignUp,
-        }
-    });
+    // const state = useSelector(state => {
+    //     return {
+    //         SignUp: state.SignUp,
+    //     }
+    // });
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     function getData(data) {
         console.log(data, '----------');
 
         context.signup(data)
-        setOpen(false);
-        handleReset()
+        // setOpen(false);
+        // handleReset()
     }
-    const handleOpen = () => {
-        setOpen(true);
-    };
+    // const handleOpen = () => {
+    //     setOpen(true);
+    // };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    // const handleClose = () => {
+    //     setOpen(false);
+    // };
 
-    const [activeStep, setActiveStep] = React.useState(0);
-    const steps = getSteps();
+    // const [activeStep, setActiveStep] = React.useState(0);
+    // const steps = getSteps();
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
+    // const handleNext = () => {
+    //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // };
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+    // const handleBack = () => {
+    //     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    // };
 
-    const handleReset = () => {
-        setActiveStep(0);
-    };
-    const body = (
-        <div style={modalStyle} className={classes.paper}>
-            <div className={classes.root}>
-                <Stepper activeStep={activeStep} alternativeLabel>
-                    {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                <div><Typography className={classes.typography}>
-                    {/* <Grid container className={classes.grid}> <Logo className={classes.logo} /></Grid> */}
-                    {activeStep === steps.length ? (
-                        <div className={classes.cont}>
-                            <Typography className={classes.instructions}>All steps are completed</Typography>
-                            <Button variant="outlined" color="primary" type="submit" onClick={handleSubmit}>
-                                Sign Up
-                            </Button>
-                        </div>
-                    ) : (
-                        <div>
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                            <div>
-                                <Button
-                                    disabled={activeStep === 0}
-                                    onClick={handleBack}
-                                    className={classes.backButton}
-                                >
-                                    Back
-                                </Button>
-                                <Button variant="contained" color="primary" onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
-                            </div>
-                        </div>
-                    )}
-                </Typography>
-                </div>
-            </div>
+    // const handleReset = () => {
+    //     setActiveStep(0);
+    // };
+    // const body = (
+    //     <div style={modalStyle} className={classes.paper}>
+    //         <div className={classes.root}>
+    //             <Stepper activeStep={activeStep} alternativeLabel>
+    //                 {steps.map((label) => (
+    //                     <Step key={label}>
+    //                         <StepLabel>{label}</StepLabel>
+    //                     </Step>
+    //                 ))}
+    //             </Stepper>
+    //             <div><Typography className={classes.typography}>
+    //                 {/* <Grid container className={classes.grid}> <Logo className={classes.logo} /></Grid> */}
+    //                 {activeStep === steps.length ? (
+    //                     <div className={classes.cont}>
+    //                         <Typography className={classes.instructions}>All steps are completed</Typography>
+    //                         <Button variant="outlined" color="primary" type="submit" onClick={handleSubmit}>
+    //                             Sign Up
+    //                         </Button>
+    //                     </div>
+    //                 ) : (
+    //                     <div>
+    //                         <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+    //                         <div>
+    //                             <Button
+    //                                 disabled={activeStep === 0}
+    //                                 onClick={handleBack}
+    //                                 className={classes.backButton}
+    //                             >
+    //                                 Back
+    //                             </Button>
+    //                             <Button variant="contained" color="primary" onClick={handleNext}>
+    //                                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+    //                             </Button>
+    //                         </div>
+    //                     </div>
+    //                 )}
+    //             </Typography>
+    //             </div>
+    //         </div>
 
-        </div>
-    );
+    //     </div>
+    // );
 
     return (
+      <Auth cond={!context.loggedIn}>
+
         <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon className="signupicon"/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -325,5 +328,6 @@ export default function SignUp() {
         <Copyright />
       </Box>
     </Container>
+      </Auth>
     );
 }
