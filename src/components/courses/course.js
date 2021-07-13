@@ -18,7 +18,7 @@ import MyQuizzes from './quiz/modal';
 import { useHistory } from 'react-router-dom';
 import Auth from '../auth/auth.js';
 import { AuthContext } from '../../context/authContext.js';
-
+import './course.scss'
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -100,14 +100,14 @@ export default function CenteredGrid() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <Typography variant="h2" gutterBottom>
+              <Typography variant="h2" className="courseHeading" gutterBottom>
                 {current.name}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
                 {current.description}
               </Typography>
 
-              <MyAssignment id={id} assignments={assignment} />
+              <MyAssignment id={id} assignments={assignment} className="assignmentbtn"/>
               <MyQuizzes id={id} quiz={quiz} />
 
               <Auth cond={context.loggedIn && context.user.email != current.owner}>
