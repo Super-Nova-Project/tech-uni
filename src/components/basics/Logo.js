@@ -13,7 +13,7 @@ export default function Logo() {
   const classes = useStyles();
   return (
     <>
-      <img src="logo4.png" alt="logo" className={classes.logo} />
+      <img src="./bt.png" alt="logo" className={classes.logo} />
     </>
   )
 };
