@@ -53,7 +53,7 @@ const Join = ()=>{
         })
         .then((response)=> {
             console.log('inside the then', response.data);
-            history.push('/create-course');
+            history.push('/');
           })
           .catch(function (error) {
               console.log(error);
