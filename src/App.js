@@ -6,7 +6,6 @@ import Grade from './components/grade/exam';
 import './App.css';
 import Main from './components/Main-page/Main.js';
 import AboutUs from './components/basics/about-us.js';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AuthProvider from './context/authContext';
 import SignUp from './components/auth/SignUp';
@@ -14,6 +13,9 @@ import Create from './components/courses/create.js';
 import Join from './components/courses/join.js';
 import OneCourse from './components/courses/course';
 import OneQuiz from './components/courses/quiz/quiz-page';
+import Room from './components/courses/Room';
+import OneAssignment from './components/courses/assignment/assignment-page.js';
+
 
 function App() {
   return (
@@ -23,7 +25,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/signup">
-            <SignUp/>
+            <SignUp />
           </Route>
           <Route exact path="/">
             <Main />
@@ -40,16 +42,22 @@ function App() {
 
           <Route exact path="/about-us">
             <AboutUs />
-            </Route>
+          </Route>
           <Route exact path="/course/:id/quiz/:quizID">
             <OneQuiz />
+          </Route>
+          <Route exact path="/course/:id/assignment/:assID">
+            <OneAssignment />
           </Route>
           <Route exact path="/course/:id/students">
             <Grade />
           </Route>
+          <Route exact path="/course/:id/:roomID"  component={Room}/>
+           
         </Switch>
-       
-      </AuthProvider> <Footer/>
+
+      </AuthProvider>
+      <Footer />
     </BrowserRouter>
   );
 }
