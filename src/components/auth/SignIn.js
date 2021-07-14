@@ -15,8 +15,6 @@ function Login (props) {
     // I have access to this.context
 
     const handleChange = e => {
-        console.log('handleChange', e.target.name);
-        console.log('handleChange', e.target.value);
         let key = e.target.name;
         let val = e.target.value;
         setLogn( prev => {return {...prev,[key]:val}});

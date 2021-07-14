@@ -16,7 +16,6 @@ export default function ContainedButtons({id, quizId}) {
         },
     }).then(async (c) => {
         let data = await c.json();
-        console.log('in my courses', data);
     })
   }
 

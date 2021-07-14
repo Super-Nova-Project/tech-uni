@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -37,7 +37,6 @@ export default function MyQuizzes ({quiz, id}) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-//   const [ listTodo, setListTodo ] = React.useState([])
 
   const handleOpen = () => {
     setOpen(true);
@@ -46,24 +45,6 @@ export default function MyQuizzes ({quiz, id}) {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  useEffect(() => {
-    // const token = cookie.load('auth-token');
-    // fetch(`${API_SERVER}/task`, {
-    //     method: 'get',
-    //     mode: 'cors',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-origin': API_SERVER,
-    //         Authorization: `Bearer ${token}`
-    //       },
-    //   }).then(async (c) => {
-    //       let data = await c.json();
-    //       console.log('------------inside the list todo-------', data);
-    //       setListTodo(()=>[...data]);
-    //       console.log('list to do', listTodo);
-    //   })
-  },[])
 
   return (
     <div className={classes.modalButton}>
@@ -88,7 +69,6 @@ export default function MyQuizzes ({quiz, id}) {
       <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <h3> Quizzes </h3>
-        {/* <UpdateComp/> */}
       </TableHead>
       <TableBody>
           <TableRow>

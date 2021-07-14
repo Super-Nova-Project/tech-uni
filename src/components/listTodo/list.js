@@ -47,14 +47,11 @@ export default function TemporaryDrawer () {
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-origin': API_SERVER,
             Authorization: `Bearer ${token}`
-          },
+        },
       }).then(async (c) => {
           let data = await c.json();
-          console.log('------------inside the list todo-------', data);
           setListTodo(()=>[...data]);
-          console.log('list to do', listTodo);
       })
   },[])
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import { Button,TextField, Typography } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import useForm from '../hooks/form';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
@@ -36,12 +36,10 @@ export default function SpringModal() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [handleSubmit, handleChange, values]= useForm(handleUpdate)
-  const [ grade, setGrade ] = React.useState([]);
   const { id } = useParams();
 
   function handleUpdate (email) {
     const token = cookie.load('auth-token');
-    console.log('in update+------', email);
     fetch(`${API_SERVER}/course/${id}/grades`,{
       method: 'post',
       mode: 'cors',
@@ -53,7 +51,6 @@ export default function SpringModal() {
       body: JSON.stringify(email),
     }).then(async (c)=>{
       let data = await c.json();
-      console.log('in updaaaaaaaaaaaaaate', data);
       handleClose();
     })
   }

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography, Grid, Container, Popper } from '@material-ui/core/';
@@ -12,11 +11,9 @@ import Radio from '@material-ui/core/Radio'
 import Show from '../../Show'
 import { AuthContext } from '../../../context/authContext';
 import Auth from '../../auth/auth';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Timer from './timer';
 import Slide from '@material-ui/core/Slide';
-import { auto } from '@popperjs/core';
 import Grades from './grades';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
@@ -64,7 +61,6 @@ export default function OneQuiz() {
   const { id, quizID } = useParams();
   const context = useContext(AuthContext)
   useEffect(() => {
-    console.log('questions', questions);
     const token = cookie.load('auth-token');
     fetch(`${API_SERVER}/course/${id}`, {
       method: 'get',
@@ -76,16 +72,12 @@ export default function OneQuiz() {
       },
     }).then(async (c) => {
       let data = await c.json();
-      console.log('in quiz data', data)
       setOwner(()=> data.owner)
-      console.log('the owner', owner);
       data.quizes.forEach(quiz => {
         if (quiz._id == quizID) {
           setCurrentQuiz(quiz);
           let arr = quiz.quizQuestions;
-          console.log('in quiz id', arr)
           setQuestions(prev => [...arr])
-          console.log('in quiz id if', questions)
         }
       });
     });
@@ -96,19 +88,15 @@ export default function OneQuiz() {
     if (questions[currentQuestion].correct_answer === answer) {
       setGrade(previous =>previous + 1);
     }
-    console.log(questions[currentQuestion].correct_answer, grade, answer)
     setAnswers(prev => [...prev, answer]);
 
   };
 
   const handleNext = () => {
-    console.log('CurrentQuestion', currentQuestion);
     setCurrentQuestion(prev => prev+1);
-    console.log('currentQuestion', currentQuestion);
   };
 
   const handleResult = () => {
-    console.log('finish')
     const token = cookie.load('auth-token');
     const obj = {
       solution:{
@@ -126,7 +114,6 @@ export default function OneQuiz() {
       body: JSON.stringify(obj)
     }).then(async (c) => {
       let data = await c.json();
-      console.log('in quiz data', data)
     });
     setFinish(true);
   }

@@ -3,8 +3,6 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import Chat from './Chat'
-import { useParams } from "react-router";
-import { Button } from "@material-ui/core";
 import "./Room.css";
 import "./Chat.css";
 
@@ -17,11 +15,9 @@ const Video = (props) => {
     const ref = useRef();
 
     useEffect(() => {
-        // this is dose not happen unless there are stream waiting to be answered
         props.peer.on("stream", stream => {
             ref.current.srcObject = stream;
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -40,7 +36,6 @@ const Room = (props) => {
     const socketRef = useRef();
     let userVideo = useRef();
     const peersRef = useRef([]);
-    console.log('props.match', props);
     const roomID = props.match.params.roomID;
 
    
@@ -53,7 +48,6 @@ const Room = (props) => {
 
     useEffect(() => {
         socketRef.current = io.connect('https://new-medio1.herokuapp.com');
-        // socketRef.current = io.connect('http://localhost:8000');
         navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true }).then(stream => {
             userVideo.current.srcObject = stream;
 
@@ -98,7 +92,6 @@ const Room = (props) => {
 
 
             socketRef.current.on('userLeft', id => {
-                console.log('second user',id);
                 if(id===socketRef.current.id){ 
 
                     function stopBothVideoAndAudio(stream) {
@@ -126,7 +119,6 @@ const Room = (props) => {
             })
 
         })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

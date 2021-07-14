@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import cookie from 'react-cookies';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -39,7 +37,6 @@ export default function MyAssignment ({assignments, id}) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-//   const [ listTodo, setListTodo ] = React.useState([])
 
   const handleOpen = () => {
     setOpen(true);
@@ -48,24 +45,6 @@ export default function MyAssignment ({assignments, id}) {
   const handleClose = () => {
     setOpen(false);
   };
-  
-  useEffect(() => {
-    // const token = cookie.load('auth-token');
-    // fetch(`${API_SERVER}/task`, {
-    //     method: 'get',
-    //     mode: 'cors',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Access-Control-Allow-origin': API_SERVER,
-    //         Authorization: `Bearer ${token}`
-    //       },
-    //   }).then(async (c) => {
-    //       let data = await c.json();
-    //       console.log('------------inside the list todo-------', data);
-    //       setListTodo(()=>[...data]);
-    //       console.log('list to do', listTodo);
-    //   })
-  },[])
 
   return (
     <div className={classes.modalButton}>
@@ -90,7 +69,6 @@ export default function MyAssignment ({assignments, id}) {
       <Table className={classes.table} aria-label="simple table">
       <TableHead>
         <h3> Assignments </h3>
-        {/* <UpdateComp/> */}
       </TableHead>
       <TableBody>
           <TableRow>

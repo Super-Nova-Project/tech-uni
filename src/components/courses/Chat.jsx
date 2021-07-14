@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import { AuthContext } from "../../context/authContext";
 import TextField from "@material-ui/core/TextField";
 import io from "socket.io-client";
 import "./Chat.css";
@@ -7,20 +6,13 @@ import ScrollableFeed from "react-scrollable-feed";
 import cookies from "react-cookies";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 function Chat({ roomID }) {
-  // const context = useContext(AuthContext);
   const firstName = cookies.load("userName");
-
   const [state, setState] = useState({
     message: "",
     name: firstName,
   });
-  console.log("state", state);
   const [chat, setChat] = useState([]);
   const socketRef = useRef();
-
-  // useEffect(() => {
-  //   setState({ message: "", name: });
-  // }, []);
 
   useEffect(() => {
     socketRef.current = io.connect("https://igotitiam.herokuapp.com");
@@ -29,7 +21,6 @@ function Chat({ roomID }) {
       setChat([...chat, { name, message }]);
     });
     return () => socketRef.current.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat]);
 
   const onTextChange = (e) => {
