@@ -29,4 +29,4 @@ Due to COVID-19 situation we decided to create this web application to make the 
 ## Deploy Link
 ------------------
 
-## [Netlify](https://60edefe1f1a36f5122215bec--upbeat-ptolemy-53ea6d.netlify.app/)
+## [Netlify](https://eraser-app.netlify.app/)

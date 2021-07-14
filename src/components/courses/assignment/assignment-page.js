@@ -19,6 +19,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import DeleteAssignment from './delete';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -156,7 +157,6 @@ export default function OneAssignment(props) {
 
   return (
     <div>
-
       <Box className={classes.title}>
         <Show condition={loading}>
           <CircularProgress />
@@ -180,10 +180,13 @@ export default function OneAssignment(props) {
 
       <div>
         <Show condition={context.user.email == owner}>
+          <div className="centerDiv">
 
         <Button color='primary' variant='contained' type="button" onClick={handleOpen}>
-          Show Student
+          Show Student Solution
         </Button>
+        <DeleteAssignment id={id} assignmentId={currentAssignment._id} />
+          </div>
         </Show>
         <Modal
           aria-labelledby="transition-modal-title"

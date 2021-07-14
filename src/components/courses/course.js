@@ -179,11 +179,14 @@ export default function CenteredGrid() {
                 <CreateAssignment id={id} owner={current.owner} style={{margin:20}} />
                 <CreateQuiz id={id} owner={current.owner} />
                 </div>
-                <CreateRoom id={id} owner={current.owner} />
-                <Delete owner={current.owner} />
-                <button type="button" className="btn btn-primary" style={{marginTop:20}}startIcon={<DeleteIcon />} onClick={DeleteTheRooms}>Delete Rooms</button>
-              </Auth>
               <OpenRooms id={id} rooms={rooms} />
+              <div className="roomsEdit">
+
+                <CreateRoom id={id} owner={current.owner} />
+                <button type="button" className="btn btn-primary noMargin" style={{marginTop:20}}startIcon={<DeleteIcon />} onClick={DeleteTheRooms}>Delete Rooms</button>
+              </div>
+                <Delete owner={current.owner} />
+              </Auth>
               
             </Paper>
 
