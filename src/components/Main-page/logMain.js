@@ -37,23 +37,32 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#fafafa',
     },
     paper: {
+        transition: 'all .5s ease',
+        '&:hover': {
+            backgroundColor: '#e1def3',
+            transform: 'scale(1.1)'
+        },
         display: 'flex',
         flexDirection: 'column',
         '& > *': {
-          margin: theme.spacing(0),
-          width: '100%',
-          height: '100%',
+            margin: theme.spacing(0),
+            width: '100%',
+            height: '100%',
         },
         margin: theme.spacing(2),
-      },
-      todo: {
+    },
+    todo: {
         position: 'relative',
-        top: -15,
+        top:'-100px',
         left: '94%',
         "@media (max-width: 770px)": {
             left: '2%'
-          },
-      }
+        },
+    },
+    heading: {
+        width:'100%',
+       textAlign:'center'
+    }
 }));
 
 export default function LogMain() {
@@ -62,7 +71,7 @@ export default function LogMain() {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
     const [courses, setCourses] = useState([])
-    const dispatch = useDispatch({setCourse})
+    const dispatch = useDispatch({ setCourse })
     const handleCourse = myCourse => {
         dispatch(setCourse(myCourse))
         history.push(`/course/${myCourse.id}`)
@@ -87,40 +96,43 @@ export default function LogMain() {
 
     return (
         <>
-            
+
             <div className={classes.cont}>
-            <div className={classes.todo}>
-                <Todo />
-            </div>
-            {courses.map(course => {
+                <Typography variant="h2" color="primary" className={classes.heading} gutterBottom>
+                    My Courses
+                </Typography>
+                <div className={classes.todo}>
+                    <Todo />
+                </div>
+                {courses.map(course => {
                     return (
-                        
+
                         <Card className={classes.paper + ' col-md-3'}>
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    name
+                                    Name
                                 </Typography>
                                 <div>
 
-                                <Typography variant="h5" component="h2">
-                                    { course.name }
-                                </Typography>
+                                    <Typography variant="h5" component="h2">
+                                        {course.name}
+                                    </Typography>
                                 </div>
                                 <Typography className={classes.pos} color="textSecondary">
-                                    description
+                                    Description
                                 </Typography>
                                 <Typography variant="body2" component="p">
-                                {course.description}
+                                    {course.description}
                                 </Typography>
-                                </CardContent>
-                                <CardActions>
-                                <Button size="small" onClick={()=> handleCourse(course)} >Go To Course</Button>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small" onClick={() => handleCourse(course)} color="primary">Go To Course</Button>
                             </CardActions>
                         </Card>
                     )
 
                 })
-            }
+                }
             </div>
         </>
     );
