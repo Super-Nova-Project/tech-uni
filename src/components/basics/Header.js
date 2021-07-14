@@ -2,16 +2,7 @@ import React, {useContext} from 'react';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import SignIn from '../auth/SignIn';
-import SignUp from '../auth/SignUp';
 import Logo from './Logo';
 import {AuthContext} from '../../context/authContext';
 import Paper from '@material-ui/core/Paper';
@@ -141,17 +132,9 @@ export default function Header() {
   const context = useContext(AuthContext);
   const classes = useStyles();
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorElSignin, setAnchorElSignin] = React.useState(null);
-  const [anchorElSignup, setAnchorElSignup] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    console.log('---tabs---',newValue);
-    console.log('---history---',history);
     setValue(newValue);
     if (newValue == 0) {
       history.push('/')
@@ -164,8 +147,6 @@ export default function Header() {
     }
   };
   const handleChanges = (event, newValue) => {
-    console.log('---tabs---',newValue);
-    console.log('---history---',history);
     setValue(newValue);
     if (newValue == 0) {
       history.push('/')
@@ -176,71 +157,6 @@ export default function Header() {
     }
   };
 
-  // const handleSignIn = (event) => {
-  //   setAnchorElSignin(event.currentTarget);
-  //   console.log(anchorElSignin);
-  // };
-
-  // const handleSignUp = (event) => {
-  //   setAnchorElSignup(event.currentTarget);
-  //   console.log(anchorElSignup);
-  // };
-
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  //   console.log(anchorEl);
-  // };
-
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={menuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMenuOpen} onClose={handleMenuClose} >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose} >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" >
-          <Badge badgeContent={4} >
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" >
-          <Badge badgeContent={11} >
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleMobileMenuOpen}>
-        <IconButton aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" >
-
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
-
   return (
     <>
     <div className={classes.grow}>
@@ -250,7 +166,7 @@ export default function Header() {
 
         </Toolbar>
           <div className={classes.auth}>
-                <SignIn anchorElSignin={anchorElSignin} />
+                <SignIn />
             
           </div>
         </AppBar>

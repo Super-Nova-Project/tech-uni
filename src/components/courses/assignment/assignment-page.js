@@ -9,8 +9,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Box, Typography, useForkRef } from '@material-ui/core';
 import { Button, TextareaAutosize } from '@material-ui/core';
 import useForm from '../../hooks/form';
-import {useHistory} from 'react-router-dom';
-import { current } from '@reduxjs/toolkit';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -81,13 +79,11 @@ export default function OneAssignment(props) {
   const classes = useStyles();
   const token = cookie.load('auth-token');
   const context = useContext(AuthContext)
-  const history = useHistory();
   const [currentAssignment, setCurrentAssignment] = useState({solutionInfo: []});
   const [handleSubmit, handleChange, values] = useForm(getData);
   const [loading, setLoading] = React.useState(true);
   const [start, setStart] = React.useState(false);
   const [finish, setFinish] = React.useState(false);
-  const [message, setMessage] = React.useState('');
   const [owner, setOwner] = useState('');
   const { id, assID } = useParams();
   const [open, setOpen] = React.useState(false);
@@ -113,17 +109,12 @@ export default function OneAssignment(props) {
 
       });
     });
-    // console.log(loading)
-    console.log({currentAssignment});
-    console.log('inside the assignment page', currentAssignment);
   }, []);
 
   function getData(data) {
     setLoading(true);
-    console.log(data.solution);
 
     const token = cookie.load('auth-token');
-    console.log(data.solution)
     const obj = {
       email:props.email,
       solution: data.solution
@@ -141,10 +132,8 @@ export default function OneAssignment(props) {
         Authorization: `Bearer ${token}`
       }
     }).then(res => {
-      // console.log(res);
       setLoading(false);
       setFinish(true);
-      // history.push(`course/${id}`);
     })
       .catch(function (error) {
         console.log(error);

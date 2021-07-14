@@ -1,10 +1,9 @@
 import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 import useForm from '../../hooks/form';
 import cookie from 'react-cookies';
-import { TextField, FormControl  } from '@material-ui/core';
+import { TextField  } from '@material-ui/core';
 import Auth from '../../auth/auth';
 import { AuthContext } from '../../../context/authContext';
 
@@ -59,8 +58,6 @@ export default function CreateQuiz({ id, owner }) {
     const [handleSubmit, handleChange, values] = useForm(newQuiz)
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
-    const [data, setData] = React.useState({});
-    const [num, setNum] = React.useState([1, 1, 1, 1, 1]);
     const [questionList, setQuestionList] = React.useState([]);
     const context = useContext(AuthContext)
     const handleOpen = () => {
@@ -89,11 +86,9 @@ export default function CreateQuiz({ id, owner }) {
 
     async function newQuiz(data) {
         const token = cookie.load('auth-token');
-        console.log('in quiz', data);
         let obj = {
             ...data, quizQuestions: questionList
         }
-        console.log('in quiz', obj);
         const response = await fetch(`${API_SERVER}/course/${id}/create-quiz`, {
             method: 'post',
             mode: 'cors',
@@ -105,7 +100,6 @@ export default function CreateQuiz({ id, owner }) {
             body: JSON.stringify(obj)
         });
         let result = await response.json();
-        console.log('in quiz result', result);
         handleClose()
     }
 
@@ -192,7 +186,6 @@ export default function CreateQuiz({ id, owner }) {
                         Create Quiz
                     </button>
                 </div>
-            {/* </form> */}
         </div>
     );
 

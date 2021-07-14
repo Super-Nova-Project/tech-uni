@@ -18,6 +18,7 @@ import MyQuizzes from './quiz/modal';
 import { useHistory } from 'react-router-dom';
 import Auth from '../auth/auth.js';
 import { AuthContext } from '../../context/authContext.js';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import './course.scss'
 
 
@@ -32,16 +33,22 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   deleteRooms: {
     marginLeft: "45%",
+  },
+  center: {
+    width: '100%',
+    textAlign: 'center',
+  },
+  right: {
+    textAlign: 'right',
+    marginTop: -37
   }
 
 }));
 
-// export const socket = io.connect('http://localhost:4000');
 export const socket = io.connect('https://eraser-401.herokuapp.com');
 
 export default function CenteredGrid() {
@@ -76,13 +83,11 @@ export default function CenteredGrid() {
       },
     }).then(async (c) => {
       let data = await c.json();
-      console.log('in my courses', data);
       setCurrent(data);
       let gradeData = data.grades;
       setGrade([...gradeData]);
       setAssignment(data.assignments)
       setQuiz(data.quizes)
-      console.log('inside dsafsad', gradeData);
     })
 
   }, [])
@@ -91,7 +96,6 @@ export default function CenteredGrid() {
   }
 
   const DeleteTheRooms=()=>{
-
     socket.emit('deleteTheRooms',id)
   }
   return (
@@ -100,19 +104,23 @@ export default function CenteredGrid() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
-              <Typography variant="h2" gutterBottom>
+              <Button onClick={()=> history.push('/')} ><ArrowBackIosIcon/> Back</Button>
+              <Auth cond={context.loggedIn && context.user.email != current.owner}>
+                <div className={classes.right}>
+
+                <Leave id={id} />
+                </div>
+              </Auth>
+              <Typography className={classes.center} variant="h2" gutterBottom>
                 {current.name}
               </Typography>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography className={classes.center} variant="subtitle1" gutterBottom>
                 {current.description}
               </Typography>
               <div className="btncourse">
               <MyAssignment id={id} assignments={assignment} />
               <MyQuizzes id={id} quiz={quiz} />
               </div>
-              <Auth cond={context.loggedIn && context.user.email != current.owner}>
-                <Leave id={id} />
-              </Auth>
               <Auth cond={context.loggedIn && context.user.email == current.owner}>
                 <div className="btncourse2">
                 <button type="button" className="btn btn-primary" onClick={goToStudents}>Students Grades</button>

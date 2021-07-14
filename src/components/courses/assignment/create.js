@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
 import useForm from '../../hooks/form';
 import cookie from 'react-cookies';
 import {TextField} from '@material-ui/core';
@@ -60,7 +59,6 @@ export default function CreateAssignment({id, owner}) {
   const [handleSubmit, handleChange, values] = useForm(newAssignment)
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
-  const [data , setData] = React.useState({});
   const context = useContext(AuthContext)
   const handleOpen = () => {
     setOpen(true);
@@ -72,7 +70,6 @@ export default function CreateAssignment({id, owner}) {
   
   async function newAssignment(data) {
     const token = cookie.load('auth-token');
-      console.log('in assign', data);
     const response = await fetch(`${API_SERVER}/course/${id}/create-assignment`, {
         method: 'post',
         mode: 'cors',
@@ -85,7 +82,6 @@ export default function CreateAssignment({id, owner}) {
     });
     let result = await response.json();
     handleClose()
-    console.log('in assign result', result);
   }
 
   const body = (
