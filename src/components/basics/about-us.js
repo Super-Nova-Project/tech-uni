@@ -1,7 +1,5 @@
 import Slider from "react-slick";
 import React from "react";
-import { Link } from "react-router-dom";
-import { Component } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./about-us.scss";
@@ -52,7 +50,6 @@ const slidesData = [
   },
 ];
 const PreviousBtn = (props) => {
-  console.log(props);
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
@@ -85,21 +82,6 @@ const Testimonial = () => {
           </div>
         </div>
       </section>
-{/* 
-      <section className="section">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12 text-center">
-                <div className="card ">
-                  <h3 className="main-heading">Our Mision</h3>
-                  <img className="imgmision"
-                    src="https://image.flaticon.com/icons/png/512/3899/3899006.png"/>
-                      <span className = "MisionCap"> Our mission is to provide a free, world‑class education for anyone, anywhere.</span>
-                </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
       <div
         className="testimonial backgroundOne"
         style={{

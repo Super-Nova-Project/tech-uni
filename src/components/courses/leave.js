@@ -1,21 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import cookie from 'react-cookies';
 import { useHistory } from "react-router";
 
-const useStyles = makeStyles({
-    // button: {
-    //     marginLeft: 100,
-    //     position: 'relative',
-    //     top: 58,
-    // }
-});
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const Delete = ({id}) => {
     const history = useHistory()
-    const classes = useStyles();
 
     const handleDelete = () => {        
     const token = cookie.load('auth-token');
@@ -28,13 +19,12 @@ const Delete = ({id}) => {
             Authorization: `Bearer ${token}`
         },
     }).then(async (c) => {
-        let arraya = await c.json();
         history.push('/')
     })
 }
 
 return (
-    <div className={classes.button}>
+    <div>
         <button
         className="btn btn-danger"
         onClick={handleDelete}

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.scss";
-// import { spacing } from "@material-ui/system";
 import Box from "@material-ui/core/Box";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TwitterIcon from "@material-ui/icons/Twitter";

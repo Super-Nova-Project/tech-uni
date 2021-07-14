@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import Paper from '@material-ui/core/Paper';
-// import { Modal, Button } from 'react-bootstrap';
 import { Button } from '@material-ui/core';
 import { useParams } from "react-router";
 import cookie from 'react-cookies';
@@ -50,9 +49,7 @@ function MyVerticallyCenteredModal(props) {
             },
         }).then(async (c) => {
             let data = await c.json();
-            console.log('in my courses', data);
             setGrade([...data]);
-            console.log('inside exam component', grade);
     })
     },[])
     const handleDelete = email => {
@@ -62,13 +59,11 @@ function MyVerticallyCenteredModal(props) {
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-origin': API_SERVER,
+            'Access-Control-Allow-origin': '*',
             Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({email}),
     }).then(async (c) => {
-        let arraya = await c.json();
-        console.log('in my delete courses----', arraya);
         history.push(`/course/${id}`)
     })
     }
@@ -126,7 +121,6 @@ function MyVerticallyCenteredModal(props) {
   }
   
   function Exam(props) {
-      const classes = useStyles();
     const [modalShow, setModalShow] = React.useState(false);
   
     return (

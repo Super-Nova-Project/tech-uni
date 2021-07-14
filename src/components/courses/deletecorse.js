@@ -26,7 +26,6 @@ const Delete = () => {
             },
         }).then(async (c) => {
             let arraya = await c.json();
-            console.log('in my delete courses----', arraya);
             history.push('/')
         })
 }

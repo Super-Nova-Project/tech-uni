@@ -1,27 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { AuthContext } from '../../context/authContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCourse } from '../../features/reducers/currentCourse';
 import { useHistory } from "react-router";
 import cookie from 'react-cookies';
-import Paper from '@material-ui/core/Paper';
 import Todo from '../listTodo/list.js';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 350
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
     },
     title: {
         fontSize: 14,
@@ -58,9 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LogMain() {
     const history = useHistory()
-    const context = useContext(AuthContext)
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
     const [courses, setCourses] = useState([])
     const dispatch = useDispatch({setCourse})
     const handleCourse = myCourse => {
@@ -79,9 +70,7 @@ export default function LogMain() {
             },
         }).then(async (c) => {
             let arraya = await c.json();
-            console.log('in my courses', arraya);
             setCourses(arraya)
-            console.log('my courses', courses);
         })
     }, [])
 
@@ -92,10 +81,10 @@ export default function LogMain() {
             <div className={classes.todo}>
                 <Todo />
             </div>
-            {courses.map(course => {
+            {courses.map((course, idx) => {
                     return (
                         
-                        <Card className={classes.paper + ' col-md-3'}>
+                        <Card className={classes.paper + ' col-md-3'} key={idx}>
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                                     name
