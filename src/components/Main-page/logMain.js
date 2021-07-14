@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         transition: 'all .5s ease',
         '&:hover': {
-            backgroundColor: '#e1def3',
             transform: 'scale(1.1)'
         },
         display: 'flex',
