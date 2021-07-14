@@ -6,6 +6,7 @@ import cookie from 'react-cookies';
 import { TextField  } from '@material-ui/core';
 import Auth from '../../auth/auth';
 import { AuthContext } from '../../../context/authContext';
+import { useHistory } from 'react-router';
 
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
@@ -54,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CreateQuiz({ id, owner }) {
+    const history = useHistory()
     const classes = useStyles();
     const [handleSubmit, handleChange, values] = useForm(newQuiz)
     const [modalStyle] = React.useState(getModalStyle);
@@ -101,6 +103,7 @@ export default function CreateQuiz({ id, owner }) {
         });
         let result = await response.json();
         handleClose()
+        history.push('/')
     }
 
     const body = (

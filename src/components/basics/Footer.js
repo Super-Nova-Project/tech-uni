@@ -11,7 +11,7 @@ function Footer() {
       <div className="continer">
         <div className="row">
           <div className="col-md-4">
-            <h6>Eraser. For Education</h6>
+          <img src="./bt2.png" alt="logo" className="footerLogo" />
             <hr />
             <p className="text-white mb-1">
               It is an online education website that will help the educational

@@ -15,6 +15,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Timer from './timer';
 import Slide from '@material-ui/core/Slide';
 import Grades from './grades';
+import DeleteQuiz from './delete';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
 const useStyles = makeStyles((theme) => ({
@@ -131,6 +132,7 @@ export default function OneQuiz() {
   }
   return (<>
     <div className={classes.root}>
+      
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper className={classes.paper}>
@@ -210,7 +212,10 @@ export default function OneQuiz() {
     </div>
       <Auth cond={context.user.email == owner}>
         <Show condition={!showGrades}>
+        <div className="centerDiv"> 
           <Button variant="contained" onClick={handleShow}>Show Grades</Button>
+          <DeleteQuiz id={id} quizId={quizID}/>
+        </div>
         </Show>
         <Show condition={showGrades}>
           <Button variant="contained" onClick={handleHide}>Hide Grades</Button>

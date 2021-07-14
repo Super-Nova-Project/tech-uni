@@ -12,6 +12,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 
@@ -48,9 +50,9 @@ export default function MyQuizzes ({quiz, id}) {
 
   return (
     <div className={classes.modalButton}>
-    <button type="button" className="btn btn-primary" onClick={handleOpen}>
-      My Quizzes
-    </button>
+    <Button type="button" variant="contained" onClick={handleOpen}>
+    <QuestionAnswerIcon/>  My Quizzes
+    </Button>
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"

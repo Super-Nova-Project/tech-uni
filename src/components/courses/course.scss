@@ -5,14 +5,36 @@
 
 .btncourse{
     display:flex !important;
-    justify-content: space-between !important;
-    margin-bottom: 50px !important;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    // margin-bottom: 50px !important;
 }
 .btncourse2{
-    padding: 50px !important;
-    display:flex !important;
-    justify-content:center !important;
-    
-  margin-bottom: 50px !important;
+    padding: 50px 0 !important;
+    display: flex !important;
+    flex-direction: column;
+    /* justify-content: flex-end !important; */
+    align-items: flex-end;
+    /* margin-bottom: 50px !important; */
+    margin-top: -150px;
   
+}
+.openRooms{
+    width: 100%;
+    text-align: center;
+    margin-top: -130px;
+}
+.roomsEdit {
+    display: flex;
+    width: 100%;
+    justify-content:center;
+}
+.noMargin {
+    margin: 10px !important;
+}
+.centerDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
 }

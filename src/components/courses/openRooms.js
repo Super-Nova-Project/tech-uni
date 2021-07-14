@@ -27,7 +27,7 @@ const OpenRooms = (props) => {
     }
     
     return (
-        <div>
+        <div className="openRooms">
           <h3>room available now </h3>
           {roomFunction()}
         </div>

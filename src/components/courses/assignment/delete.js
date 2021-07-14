@@ -1,9 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import cookie from 'react-cookies';
+import { useHistory } from 'react-router';
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 export default function ContainedButtons({id, assignmentId}) {
-  const classes = useStyles();
+  const history = useHistory()
   const handleDelete = () => {
     const token = cookie.load('auth-token');
     fetch(`${API_SERVER}/course/${id}/delete-as/${assignmentId}`, {
@@ -15,7 +16,7 @@ export default function ContainedButtons({id, assignmentId}) {
             Authorization: `Bearer ${token}`
         },
     }).then(async (c) => {
-        let data = await c.json();
+      history.push('/')
     })
   }
 
