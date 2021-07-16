@@ -128,6 +128,9 @@ export default function CenteredGrid() {
             
             <Paper className={classes.paper}>
               <Button onClick={()=> history.push('/')} ><ArrowBackIosIcon/> Back</Button>
+              <Auth cond={context.loggedIn && context.user.email == current.owner}>
+              <Delete owner={current.owner} />
+              </Auth>
               <Auth cond={context.loggedIn && context.user.email != current.owner}>
                 <div className={classes.right}>
 
@@ -174,19 +177,19 @@ export default function CenteredGrid() {
               <MyQuizzes id={id} quiz={quiz} />
               </div>
               <Auth cond={context.loggedIn && context.user.email == current.owner}>
+                
                 <div className="btncourse2">
                 <button type="button" className="btn btn-primary" onClick={goToStudents}>Students Grades</button>
                 <CreateAssignment id={id} owner={current.owner} style={{margin:20}} />
                 <CreateQuiz id={id} owner={current.owner} />
                 </div>
-              <OpenRooms id={id} rooms={rooms} />
               <div className="roomsEdit">
 
                 <CreateRoom id={id} owner={current.owner} />
                 <button type="button" className="btn btn-primary noMargin" style={{marginTop:20}}startIcon={<DeleteIcon />} onClick={DeleteTheRooms}>Delete Rooms</button>
               </div>
-                <Delete owner={current.owner} />
               </Auth>
+              <OpenRooms id={id} rooms={rooms} email={context.user.email} owner={current.owner}/>
               
             </Paper>
 

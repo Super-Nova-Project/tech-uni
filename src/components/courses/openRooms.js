@@ -27,7 +27,7 @@ const OpenRooms = (props) => {
     }
     
     return (
-        <div className="openRooms">
+        <div className={props.email == props.owner? "openRooms" : "openRoomsT"}>
           <h3>room available now </h3>
           {roomFunction()}
         </div>

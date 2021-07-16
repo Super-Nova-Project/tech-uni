@@ -55,13 +55,13 @@ function Chat({ roomID }) {
         </ScrollableFeed>
       </div>
 
-      <form className="myform" onSubmit={onMessageSubmit}>
+      <form className="myform" onSubmit={onMessageSubmit} autoComplete="off">
         <button className="roomButton">Send Message</button>
 
         <div className="rowInput">
           <div className="name-field">
             <TextField
-              hidden
+              hidden 
               fullWidth
               name="name"
               // onChange={(e) => onTextChange(e)}

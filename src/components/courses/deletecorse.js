@@ -5,7 +5,14 @@ import { useParams } from "react-router";
 import cookie from 'react-cookies';
 import { useHistory } from "react-router";
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+    button: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginTop: -38
+    }
+});
 const API_SERVER = 'https://eraser-401.herokuapp.com';
 const Delete = () => {
     const history = useHistory()
